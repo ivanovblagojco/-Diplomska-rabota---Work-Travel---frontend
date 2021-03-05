@@ -1,5 +1,6 @@
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import '../css/navbar.css'
+import {Link} from "react-router-dom";
 function Navbar() {
   return (
     <div className="App">
@@ -17,8 +18,8 @@ function Navbar() {
                         <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
                     </ul>
                     <ul class="nav navbar-nav flex-row justify-content-between ml-auto">
-                        <li class="nav-item"><a href="#" class="nav-link">Најава</a></li>
-                        <li class="nav-item"><a href="#" class="nav-link">Регистрација</a></li>
+                        <li class="nav-item"><Link to={'/login'} class="nav-link">Најава</Link></li>
+                        <li class="nav-item"><Link to={'/register'} class="nav-link">Регистрација</Link></li>
                     </ul>
                 </div>
             </div>
