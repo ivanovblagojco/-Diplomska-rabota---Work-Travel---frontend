@@ -52,6 +52,25 @@ const AuthenticationService = {
         }else {
             return false;
         }
+    },
+    facebookLogin: (facebookLoginRequest) => {
+        const data = {
+            ...facebookLoginRequest
+        }
+        //const formParams = JSON.stringify(data);
+        return axios.post("http://localhost:8080/facebook/signin",null, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'auth_token' : facebookLoginRequest.accessToken
+            }
+        })
+            .catch(
+                err => {
+                    console.log(err);
+                }
+            );
     }
 }
 

@@ -4,12 +4,60 @@ import '../css/login.css'
 import authenticationService from '../axios/authentication'
 import Home from "./Home";
 import Navbar from './Navbar'
+import React, { useEffect, useState } from "react";
+const AUTH_TOKEN = 'auth_token';
+
+
+/*global FB*/
 class Login extends Component{
+    constructor(props) {
+        super(props);
+        this.handleSubmit = this.handleSubmit.bind(this);
+    }
+    componentDidMount () {
+        const script = document.createElement("script");
+
+        script.src = "https://connect.facebook.net/en_US/sdk.js"
+        script.async = true;
+        script.crossOrigin="crossorigin";
+        script.defer=true;
+
+        document.body.appendChild(script);
+
+
+        window.fbAsyncInit = function () {
+            FB.init({
+                appId: "255570682911453",
+                autoLogAppEvents: true,
+                xfbml: true,
+                version: "v7.0",
+            });
+        };
+    }
+
     handleSubmit = (e) =>{
         e.preventDefault();
         authenticationService.Login(this.email, this.password)
     }
     render() {
+
+        const getFacebookAccessToken = () =>{
+            FB.login(function(response) {
+                if (response.status === 'connected') {
+                    // Logged into your webpage and Facebook.
+                    const facebookLoginRequest = {
+                        accessToken: response.authResponse.accessToken,
+                    };
+                    authenticationService.facebookLogin(facebookLoginRequest)
+                        .then((response) => {
+                            localStorage.setItem(AUTH_TOKEN, response.data);
+                            window.location="/";
+                        });
+                } else {
+                    // The person is not logged into your webpage or we are unable to tell.
+                }
+            }, {scope: 'email'});
+        }
         if(authenticationService.CheckIfUserLoggedIn()===false){
             return(<div>
                     <div id="login">
@@ -31,8 +79,8 @@ class Login extends Component{
                                                 <input type="password" className="form-control" placeholder="Лозинка" onChange={e=>this.password = e.target.value}/>
                                             </div>
                                             <button id="btn-submit" className="btn-block btn-primary">Најави се</button>
-                                            <button id="btn-facebook" className="btn-block btn-primary">Регистрирај се преку Facebook</button>
                                         </form>
+                                        <button id="btn-facebook" className="btn-block btn-primary" onClick={getFacebookAccessToken}>Регистрирај се преку Facebook</button>
                                     </div>
                                 </div>
                             </div>

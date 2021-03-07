@@ -41,6 +41,7 @@ class Navbar extends Component{
                 </nav>
 
             </div>
+
         );
     }
 
