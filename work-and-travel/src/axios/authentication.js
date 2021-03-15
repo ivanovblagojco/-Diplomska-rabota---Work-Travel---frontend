@@ -71,6 +71,43 @@ const AuthenticationService = {
                     console.log(err);
                 }
             );
+    },
+    ForgotPassword: (email) => {
+        return axios.post("http://localhost:8080/rest/forgot_password",null, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'email': email
+            }
+        }).then(res =>{
+                window.location.href = '/login';
+            }
+        )
+            .catch(
+                err => {
+                    console.log(err);
+                }
+            );
+    },
+    ResetPassword: (password, token) => {
+        return axios.post("http://localhost:8080/rest/reset_password",null, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'password': password,
+                'token':token
+            }
+        }).then(res =>{
+                window.location.href = '/login';
+            }
+        )
+            .catch(
+                err => {
+                    console.log(err);
+                }
+            );
     }
 }
 

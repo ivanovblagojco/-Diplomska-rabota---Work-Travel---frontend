@@ -5,6 +5,7 @@ import authenticationService from '../axios/authentication'
 import Home from "./Home";
 import Navbar from './Navbar'
 import React, { useEffect, useState } from "react";
+import {Link} from "react-router-dom";
 const AUTH_TOKEN = 'auth_token';
 
 
@@ -81,6 +82,7 @@ class Login extends Component{
                                             <button id="btn-submit" className="btn-block btn-primary">Најави се</button>
                                         </form>
                                         <button id="btn-facebook" className="btn-block btn-primary" onClick={getFacebookAccessToken}>Регистрирај се преку Facebook</button>
+                                        <Link to="/forgot_password">Заборавена лозинка?</Link>
                                     </div>
                                 </div>
                             </div>
