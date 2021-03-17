@@ -6,6 +6,8 @@ import FirstRegister from "./FirstRegister"
 import {BrowserRouter, Switch, Route} from "react-router-dom";
 import ForgotPassword from "./ForgotPassword";
 import ResetPassword from "./ResetPassword";
+import PostCard from "./PostCard";
+import CarouselSlider from "./CarouselSlider";
 class App extends Component {
   render() {
     return (
@@ -17,6 +19,8 @@ class App extends Component {
                 <Route exact path="/first_register" component={FirstRegister}/>
                 <Route exact path="/forgot_password" component={ForgotPassword}/>
                 <Route exact path="/reset_password" component={ResetPassword}/>
+                <Route exact path="/post" component={PostCard}/>
+                <Route exact path="/caro" component={CarouselSlider}/>
             </Switch>
         </BrowserRouter>
     )

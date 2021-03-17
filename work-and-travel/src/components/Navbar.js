@@ -22,18 +22,18 @@ class Navbar extends Component{
         }
         return (
             <div className="App">
-                <nav class="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation">
-                    <div class="container">
-                        <a class="navbar-brand" href="#">Work&Travel</a>
-                        <button class="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
+                <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation">
+                    <div className="container">
+                        <a className="navbar-brand" href="#">Work&Travel</a>
+                        <button className="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
                             &#9776;
                         </button>
-                        <div class="collapse navbar-collapse" id="exCollapsingNavbar">
-                            <ul class="nav navbar-nav">
-                                <li class="nav-item"><a href="#" class="nav-link">Почетна</a></li>
-                                <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
-                                <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
-                                <li class="nav-item"><a href="#" class="nav-link">Link</a></li>
+                        <div className="collapse navbar-collapse" id="exCollapsingNavbar">
+                            <ul className="nav navbar-nav">
+                                <li className="nav-item"><a href="#" className="nav-link">Почетна</a></li>
+                                <li className="nav-item"><a href="#" className="nav-link">Link</a></li>
+                                <li className="nav-item"><a href="#" className="nav-link">Link</a></li>
+                                <li className="nav-item"><a href="#" className="nav-link">Link</a></li>
                             </ul>
                             {buttons}
                         </div>
