@@ -1,3 +1,4 @@
+
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import '../css/navbar.css'
 import {Link} from "react-router-dom";
@@ -31,7 +32,7 @@ class Navbar extends Component{
                         <div className="collapse navbar-collapse" id="exCollapsingNavbar">
                             <ul className="nav navbar-nav">
                                 <li className="nav-item"><a href="#" className="nav-link">Почетна</a></li>
-                                <li className="nav-item"><a href="#" className="nav-link">Link</a></li>
+                                <li className="nav-item"><a href="/createPost" className="nav-link">Креирај објава</a></li>
                                 <li className="nav-item"><a href="#" className="nav-link">Link</a></li>
                                 <li className="nav-item"><a href="#" className="nav-link">Link</a></li>
                             </ul>
