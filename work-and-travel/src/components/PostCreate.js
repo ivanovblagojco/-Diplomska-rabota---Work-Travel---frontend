@@ -8,40 +8,27 @@ class PostCreate extends Component{
     constructor(props) {
         super(props);
         this.state={
-            post:{
-                title:'',
-                description:''
-            },
-            file:{
-                content:null,
-                name:''
-            }
+            title:'',
+            description:'',
+            file:null
         }
         this.handleSubmit = this.handleSubmit.bind(this);
     }
     handleSubmit(event) {
         event.preventDefault();
-        console.log(this.state)
-        debugger;
-        axiosService.addNewPost(this.state);
+
+        var formData = new FormData();
+        formData.append("file", this.state.file);
+        formData.append("title", this.state.title);
+        formData.append("description", this.state.description);
+
+        console.log(formData)
+        axiosService.addNewPost(formData);
 
     }
 
     onFileChange = event => {
-        var binaryString='';
-        var reader = new FileReader();
-        var arrayBuffer = reader.readAsArrayBuffer(event.target.files[0]).result,
-            array = new Uint8Array(arrayBuffer),
-            binaryString = String.fromCharCode.apply(null, array);
-
-            console.log(binaryString + "dsadsa");
-
-
-
-
-
-        this.setState({file:{ content: binaryString, name:event.target.files[0].name}});
-
+        this.setState({file:event.target.files[0]});
     };
     // On file upload (click the upload button)
 
@@ -49,11 +36,11 @@ class PostCreate extends Component{
     // File content to be displayed after
     // file upload is complete
     fileData = () => {
-        if (this.state.file.content) {
+        if (this.state.file) {
             return (
                 <div>
                     <p>File Name: {this.state.file.name}</p>
-                    <p>File Type: {this.state.file.content.type}</p>
+                    <p>File Type: {this.state.file.type}</p>
                 </div>
             );
         }
@@ -69,11 +56,11 @@ class PostCreate extends Component{
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Group controlId="title">
                             <Form.Label>Наслов</Form.Label>
-                            <Form.Control type="text" placeholder="Внеси наслов" onChange={e=>this.setState({post:{ ...this.state.post, title:  e.target.value}})} />
+                            <Form.Control type="text" placeholder="Внеси наслов" onChange={e=>this.setState({title:  e.target.value})} />
                         </Form.Group>
                         <Form.Group controlId="description">
                             <Form.Label>Опис</Form.Label>
-                            <Form.Control as="textarea" rows={20} placeholder="Внеси опис" onChange={e=>this.setState({post:{...this.state.post, description:  e.target.value}})} />
+                            <Form.Control as="textarea" rows={20} placeholder="Внеси опис" onChange={e=>this.setState({description:  e.target.value})} />
                         </Form.Group>
                         <div>
                             <div>

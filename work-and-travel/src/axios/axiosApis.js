@@ -2,13 +2,10 @@ import axios from './axios'
 import AuthenticationService from "./authentication";
 
 const AxiosService = {
-    addNewPost: (postHelper) => {
-        const data = {
-            ...postHelper
-        }
-        const formParams = JSON.stringify(data);
-        debugger;
-        return axios.post("/rest/createPost",formParams, {
+    addNewPost: (formData) => {
+
+        //const formParams = JSON.stringify(data);
+        return axios.post("/rest/createPost",formData, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -21,6 +18,25 @@ const AxiosService = {
             .catch(
                 err => {
                     console.log(err);
+                }
+            );
+    },
+    getAllPosts: () => {
+
+        //const formParams = JSON.stringify(data);
+        return axios.get("/rest/getAllPosts", null, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            }
+        }).then(res =>{
+                return res.data;
+            }
+        )
+            .catch(
+                err => {
+                    return null;
                 }
             );
     }
