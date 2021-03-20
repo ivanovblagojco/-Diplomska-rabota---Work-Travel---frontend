@@ -14,7 +14,7 @@ class PostCard extends Component{
                                 <strong className="d-inline-block mb-2 text-white">{this.props.post.title}</strong>
 
                                 <div className="mb-1 text-white-50 small">Nov 12</div>
-                                <p className="card-text mb-auto">{this.props.post.description}
+                                <p className="card-text mb-auto">{this.props.post.description.substring(0, 100)+"..."}
                                 </p>
                                 <Link className="btn btn-outline-light btn-sm" to={`/posts/${this.props.post.id}`}>Види повеќе</Link>
 

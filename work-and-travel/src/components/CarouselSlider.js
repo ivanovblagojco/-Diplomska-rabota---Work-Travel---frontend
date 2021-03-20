@@ -1,57 +1,82 @@
 import {Component} from "react";
 import {Carousel} from "react-bootstrap";
+import axiosService from "../axios/axiosApis";
+import {Link} from "react-router-dom";
 
 class CarouselSlider extends Component{
+    constructor(props) {
+        super(props);
+        this.state = {
+            Posts:[],
+            isLoading : true
+        }
+    }
+    async componentDidMount() {
+        debugger;
+        const data = await axiosService.getLastThreePosts();
 
+        this.setState({
+            Posts:data,
+            isLoading:false
+        })
+    }
     render() {
+
         const handleSelect = (selectedIndex, e) => {
 
             //setIndex(selectedIndex);
         };
+        const posts = this.state.Posts;
+        const isLoading=this.state.isLoading;
+        if(isLoading)
+            return (<div>Loading</div>);
         return (
             <div className="w-100">
                 <Carousel onSelect={handleSelect}>
                     <Carousel.Item>
+                        <Link to={`/posts/${posts[0].id}`}>
                         <img
                             className="d-block w-100"
-                            src="//placeimg.com/250/250/arch"
+                            src={`data:${posts[0].mime_type};base64,${posts[0].bytes}`}
                             alt="First slide"
                             style={{height:"100vh"}}
                         />
+                        </Link>
                         <Carousel.Caption>
-                            <h3>First slide label</h3>
-                            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
+                            <h3>{posts[0].title}</h3>
+                            <p>{posts[0].description.substring(0, 100)+"..."}</p>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item>
+                        <Link to={`/posts/${posts[1].id}`}>
                         <img
                             className="d-block w-100"
-                            src="//placeimg.com/250/250/arch"
+                            src={`data:${posts[1].mime_type};base64,${posts[1].bytes}`}
                             alt="Second slide"
                             style={{height:"100vh"}}
                         />
-
+                        </Link>
                         <Carousel.Caption>
-                            <h3>Second slide label</h3>
-                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>
+                            <h3>{posts[1].title}</h3>
+                            <p>{posts[1].description.substring(0, 100)+"..."}</p>
                         </Carousel.Caption>
                     </Carousel.Item>
                     <Carousel.Item>
+                        <Link to={`/posts/${posts[2].id}`}>
                         <img
                             className="d-block w-100"
-                            src="//placeimg.com/250/250/arch"
+                            src={`data:${posts[2].mime_type};base64,${posts[2].bytes}`}
                             alt="Third slide"
                             style={{height:"100vh"}}
-                        />
+                        /></Link>
 
                         <Carousel.Caption>
-                            <h3>Third slide label</h3>
-                            <p>
-                                Praesent commodo cursus magna, vel scelerisque nisl consectetur.
-                            </p>
+                            <h3>{posts[2].title}</h3>
+                            <p>{posts[2].description.substring(0, 100)+"..."}</p>
                         </Carousel.Caption>
                     </Carousel.Item>
                 </Carousel>
+                <br/>
             </div>
         );
     }

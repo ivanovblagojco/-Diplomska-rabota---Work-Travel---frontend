@@ -18,10 +18,12 @@ class Home extends Component{
         debugger;
         const data = await axiosService.getAllPosts();
 
-        this.setState({
-            Posts:data,
-            isLoading:false
-        })
+        if (data!==null){
+            this.setState({
+                Posts:data,
+                isLoading:false
+            })
+        }
     }
 
     render() {
@@ -39,6 +41,7 @@ class Home extends Component{
         return(
             <div>
                 <Navbar/>
+                <CarouselSlider/>
                 <Container fluid>
                     <Row>
                         {postCards}>

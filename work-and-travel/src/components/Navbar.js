@@ -24,7 +24,7 @@ class Navbar extends Component{
         }
         return (
             <div className="App">
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark fixed-top" role="navigation">
+                <nav className="navbar navbar-expand-lg navbar-dark bg-dark static-top" role="navigation">
                     <div className="container">
                         <a className="navbar-brand" href="#">Work&Travel</a>
                         <button className="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
@@ -41,9 +41,6 @@ class Navbar extends Component{
                         </div>
                     </div>
                 </nav>
-                <br/>
-                <br/>
-                <br/>
             </div>
 
         );
