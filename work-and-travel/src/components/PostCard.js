@@ -1,5 +1,6 @@
 import {Component} from "react";
 import "../css/postCard.css"
+import {Link} from "react-router-dom";
 class PostCard extends Component{
     constructor(props) {
         super(props);
@@ -15,8 +16,8 @@ class PostCard extends Component{
                                 <div className="mb-1 text-white-50 small">Nov 12</div>
                                 <p className="card-text mb-auto">{this.props.post.description}
                                 </p>
-                                <a className="btn btn-outline-light btn-sm" role="button"
-                                   href="http://www.jquery2dotnet.com/">Continue reading</a>
+                                <Link className="btn btn-outline-light btn-sm" to={`/posts/${this.props.post.id}`}>Види повеќе</Link>
+
                             </div>
                             <img className="card-img-right flex-auto d-none d-lg-block" alt="Thumbnail [200x250]"
                                  src={`data:${this.props.post.mime_type};base64,${this.props.post.bytes}`} style = {{width: 200, height: 250}}/>

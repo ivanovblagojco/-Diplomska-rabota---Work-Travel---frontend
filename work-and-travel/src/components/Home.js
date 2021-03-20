@@ -4,6 +4,7 @@ import Footer from "./Footer";
 import PostCard from "./PostCard";
 import axiosService from '../axios/axiosApis'
 import {Col, Container, Row} from "react-bootstrap";
+import CarouselSlider from "./CarouselSlider";
 
 class Home extends Component{
     constructor(props) {
@@ -38,9 +39,6 @@ class Home extends Component{
         return(
             <div>
                 <Navbar/>
-                <br/>
-                <br/>
-                <br/>
                 <Container fluid>
                     <Row>
                         {postCards}>

@@ -9,6 +9,7 @@ import ResetPassword from "./ResetPassword";
 import PostCard from "./PostCard";
 import CarouselSlider from "./CarouselSlider";
 import PostCreate from "./PostCreate";
+import PostPreview from "./PostPreview";
 class App extends Component {
   render() {
     return (
@@ -23,6 +24,7 @@ class App extends Component {
                 <Route exact path="/post" component={PostCard}/>
                 <Route exact path="/caro" component={CarouselSlider}/>
                 <Route exact path="/createPost" component={PostCreate}/>
+                <Route path='/posts/:id' exact={true} component={PostPreview}/>
             </Switch>
         </BrowserRouter>
     )
