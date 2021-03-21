@@ -5,6 +5,8 @@ import PostCard from "./PostCard";
 import axiosService from '../axios/axiosApis'
 import {Col, Container, Row} from "react-bootstrap";
 import CarouselSlider from "./CarouselSlider";
+import {Link} from "react-router-dom";
+import '../css/home.css'
 
 class Home extends Component{
     constructor(props) {
@@ -13,9 +15,13 @@ class Home extends Component{
             Posts:[],
             isLoading : true
         }
+        this.handleAgencyClick = this.handleAgencyClick.bind(this);
+        this.handleUsersClick = this.handleUsersClick.bind(this);
+        this.handleAllClick = this.handleAllClick.bind(this);
+
+
     }
     async componentDidMount() {
-        debugger;
         const data = await axiosService.getAllPosts();
 
         if (data!==null){
@@ -25,7 +31,37 @@ class Home extends Component{
             })
         }
     }
-
+    async handleAllClick(){
+        const data = await axiosService.getAllPosts();
+        if (data!==null){
+            this.setState({
+                Posts:data,
+                isLoading:false
+            })
+        }
+        console.log(this.state);
+    }
+    async handleAgencyClick(){
+        const data = await axiosService.getAllPostsFromAgency();
+        if (data!==null){
+            this.setState({
+                Posts:data,
+                isLoading:false
+            })
+        }
+        console.log(this.state);
+    }
+    async handleUsersClick(){
+        const data = await axiosService.getAllPostsFromUsers();
+        debugger;
+        if (data!==null){
+            this.setState({
+                Posts:data,
+                isLoading:false
+            })
+        }
+        console.log(this.state);
+    }
     render() {
         const posts = this.state.Posts;
         const isLoading=this.state.isLoading;
@@ -42,6 +78,13 @@ class Home extends Component{
             <div>
                 <Navbar/>
                 <CarouselSlider/>
+                    <div className="d-flex justify-content-center">
+                        <Link className="btn btn-outline-light btn-sm mr-1" to="#" onClick={this.handleAgencyClick}>Објави од агенции</Link>
+                        <Link className="btn btn-outline-light btn-sm ml-1" to="#" onClick={this.handleUsersClick}>Објави од корисници</Link>
+                        <Link className="btn btn-outline-light btn-sm ml-1" to="#" onClick={this.handleAllClick}>Сите</Link>
+                    </div>
+                    <br/>
+
                 <Container fluid>
                     <Row>
                         {postCards}>

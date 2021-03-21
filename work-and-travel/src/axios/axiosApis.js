@@ -76,6 +76,44 @@ const AxiosService = {
                     return null;
                 }
             );
+    },
+    getAllPostsFromUsers: () => {
+
+        //const formParams = JSON.stringify(data);
+        return axios.get("/rest/getAllPostsFromUsers", null, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            }
+        }).then(res =>{
+                return res.data;
+            }
+        )
+            .catch(
+                err => {
+                    return null;
+                }
+            );
+    },
+    getAllPostsFromAgency: () => {
+
+        //const formParams = JSON.stringify(data);
+        return axios.get("/rest/getAllPostsFromAgency", null, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            }
+        }).then(res =>{
+                return res.data;
+            }
+        )
+            .catch(
+                err => {
+                    return null;
+                }
+            );
     }
 }
 export default AxiosService;
