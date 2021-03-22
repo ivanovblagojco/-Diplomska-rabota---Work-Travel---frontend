@@ -2,6 +2,7 @@ import {Component} from "react";
 import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import '../css/login.css'
 import authenticationService from '../axios/authentication'
+import userService from '../axios/userService'
 import Home from "./Home";
 import Navbar from './Navbar'
 import React, { useEffect, useState } from "react";
@@ -38,7 +39,16 @@ class Login extends Component{
 
     handleSubmit = (e) =>{
         e.preventDefault();
-        authenticationService.Login(this.email, this.password)
+        authenticationService.Login(this.email, this.password).then(res=>{
+                if(res!==undefined){
+                    userService.getLoggedUser().then(data=>{
+                        localStorage.setItem("email", data.email);
+                        window.location.href="/";
+                    });
+
+                }
+            }
+        )
     }
     render() {
 
@@ -52,7 +62,10 @@ class Login extends Component{
                     authenticationService.facebookLogin(facebookLoginRequest)
                         .then((response) => {
                             localStorage.setItem(AUTH_TOKEN, response.data);
-                            window.location="/";
+                            userService.getLoggedUser().then(data=>{
+                                localStorage.setItem("email", data.email);
+                                window.location.href="/";
+                            });
                         });
                 } else {
                     // The person is not logged into your webpage or we are unable to tell.

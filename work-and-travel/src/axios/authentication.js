@@ -38,7 +38,7 @@ const AuthenticationService = {
             }
         }).then(res=>{
             localStorage.setItem(AUTH_TOKEN, res.data);
-            window.location.href = '/';
+            return res;
 
         }).catch(
             err => {

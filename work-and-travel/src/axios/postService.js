@@ -1,7 +1,6 @@
 import axios from './axios'
-import AuthenticationService from "./authentication";
 
-const AxiosService = {
+const PostService = {
     addNewPost: (formData) => {
 
         //const formParams = JSON.stringify(data);
@@ -116,4 +115,4 @@ const AxiosService = {
             );
     }
 }
-export default AxiosService;
+export default PostService;

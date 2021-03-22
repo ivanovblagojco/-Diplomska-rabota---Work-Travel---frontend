@@ -1,7 +1,6 @@
 body {
     margin: 0;
     padding: 0;
-    background-color: #17a2b8;
     height: 100vh;
 }
 #register .container #register-row #register-column #register-box {
@@ -10,6 +9,7 @@ body {
     height: 600px;
     border: 1px solid #9C9C9C;
     background-color: #EAEAEA;
+    border-radius: 25px;
 }
 #register .container #register-row #register-column #register-box #register-form {
     padding: 20px;

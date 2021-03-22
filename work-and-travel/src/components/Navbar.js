@@ -12,6 +12,7 @@ class Navbar extends Component{
             buttons = (
                 <ul className="nav navbar-nav flex-row justify-content-between ml-auto">
                     <li className="nav-item"><Link to={'/'} class="nav-link" onClick={()=>localStorage.clear()}>Одјави се</Link></li>
+                    <li className="nav-item"><div className="nav-link text-info"> {localStorage.getItem("email")}</div></li>
                 </ul>
             )
         }else{

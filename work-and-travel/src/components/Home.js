@@ -2,11 +2,14 @@ import {Component} from "react";
 import Navbar from'./Navbar'
 import Footer from "./Footer";
 import PostCard from "./PostCard";
-import axiosService from '../axios/axiosApis'
+import axiosService from '../axios/postService'
 import {Col, Container, Row} from "react-bootstrap";
 import CarouselSlider from "./CarouselSlider";
 import {Link} from "react-router-dom";
 import '../css/home.css'
+import '../css/loader.css'
+import ClipLoader from "react-spinners/ClipLoader";
+import {MoonLoader, PulseLoader} from "react-spinners";
 
 class Home extends Component{
     constructor(props) {
@@ -66,7 +69,9 @@ class Home extends Component{
         const posts = this.state.Posts;
         const isLoading=this.state.isLoading;
         if(isLoading)
-            return (<div>Loading</div>);
+            return (<div className="loader">
+                <PulseLoader color={"#202020"} loading={this.state.isLoading} size={40}/>
+            </div>);
         let postCards = posts.map(post =>{
             return(
                 <Col className="container" sm="5">

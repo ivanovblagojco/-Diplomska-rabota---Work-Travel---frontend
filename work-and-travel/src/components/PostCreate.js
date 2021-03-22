@@ -3,7 +3,7 @@ import {Button, Form} from "react-bootstrap";
 import Navbar from './Navbar'
 import Footer from './Footer'
 import '../css/postCreate.css'
-import axiosService from '../axios/axiosApis'
+import axiosService from '../axios/postService'
 class PostCreate extends Component{
     constructor(props) {
         super(props);

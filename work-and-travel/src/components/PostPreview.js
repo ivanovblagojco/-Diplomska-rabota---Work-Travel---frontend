@@ -1,5 +1,5 @@
 import {Component} from "react";
-import axiosService from '../axios/axiosApis'
+import axiosService from '../axios/postService'
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 

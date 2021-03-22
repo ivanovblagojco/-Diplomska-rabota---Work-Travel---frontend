@@ -1,7 +1,9 @@
 import {Component} from "react";
 import {Carousel} from "react-bootstrap";
-import axiosService from "../axios/axiosApis";
+import axiosService from "../axios/postService";
 import {Link} from "react-router-dom";
+import {PulseLoader} from "react-spinners";
+import '../css/loader.css'
 
 class CarouselSlider extends Component{
     constructor(props) {
@@ -29,7 +31,11 @@ class CarouselSlider extends Component{
         const posts = this.state.Posts;
         const isLoading=this.state.isLoading;
         if(isLoading)
-            return (<div>Loading</div>);
+            return (
+                <div className="loader">
+                    <PulseLoader color={"#202020"} loading={this.state.isLoading} size={40}/>
+                </div>
+            );
         return (
             <div className="w-100">
                 <Carousel onSelect={handleSelect}>
