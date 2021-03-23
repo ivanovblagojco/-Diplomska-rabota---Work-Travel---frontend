@@ -14,8 +14,7 @@ import img from "../images/sand.jpeg"
 class App extends Component {
     componentDidMount() {
         document.body.style.background = `url(${img}) repeat`
-        //document.body.style.background = 'height: 100%'
-        //document.body.style.backgroundSize="100% 1000px"
+        document.body.style.color = 'white'
     }
     render() {
         return (

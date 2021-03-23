@@ -3,13 +3,25 @@ import axiosService from '../axios/postService'
 import Navbar from "./Navbar";
 import Footer from "./Footer";
 
+import commentService from '../axios/commentService'
+import {Col} from "react-bootstrap";
+import PostCard from "./PostCard";
+import CommentPreview from "./CommentPreview";
+
+
 class PostPreview extends Component{
     constructor(props) {
         super(props);
         this.state={
             Post:null,
-            isLoading:true
+            isLoading:true,
+            comment:"",
+            Comments: null
         }
+
+        this.handleCommentChange = this.handleCommentChange.bind(this);
+        this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
+
     }
     async componentDidMount() {
         const id = window.location.pathname.split('/')[2];
@@ -17,15 +29,60 @@ class PostPreview extends Component{
 
         const data = await axiosService.getPost(id);
 
+
         this.setState({
             Post:data,
-            isLoading:false
+            isLoading:false,
+        })
+
+        const data2 = await commentService.getAllComments(this.state.Post.id);
+        this.setState({
+            Comments:data2
+        })
+    }
+    handleCommentSubmit(){
+        debugger;
+
+        let commentHelperFront = {
+            description:this.state.comment,
+            post_id:this.state.Post.id,
+            user_email:localStorage.getItem("email")
+        }
+
+        commentService.createComment(commentHelperFront).then(res=>{
+            if(res!==undefined){
+                commentService.getAllComments(this.state.Post.id).then(data=>{
+                    this.setState({
+                        Comments:data
+                    })
+                })
+            }
+        });
+    }
+    handleCommentChange(e){
+        e.preventDefault();
+
+        this.setState({
+            comment:e.target.value
         })
     }
 
     render() {
+
         const post = this.state.Post;
         const isLoading=this.state.isLoading;
+        const comments_list = this.state.Comments;
+
+        let commentsShow;
+        if(comments_list!==null) {
+                commentsShow = comments_list.map(c => {
+                return (
+                    <CommentPreview comment={c}/>
+                )
+            })
+        }
+
+
         if(isLoading)
             return (<div>Loading</div>);
         return(
@@ -51,64 +108,18 @@ class PostPreview extends Component{
 
 
                         <div className="card my-4">
-                            <h5 className="card-header">Leave a Comment:</h5>
+                            <h5 style={{color:"black"}} className="card-header">Остави коментар:</h5>
                             <div className="card-body">
                                 <form>
                                     <div className="form-group">
-                                        <textarea className="form-control" rows="3">d</textarea>
+                                        <textarea className="form-control" rows="3" onChange={this.handleCommentChange}></textarea>
                                     </div>
-                                    <button type="submit" className="btn btn-primary">Submit
-                                    </button>
+                                    <button type="button" className="btn btn-primary" onClick={this.handleCommentSubmit}>Внеси коментар</button>
                                 </form>
                             </div>
                         </div>
-                        <div className="media mb-4">
-                            <img className="d-flex mr-3 rounded-circle"
-                                 src="http://placehold.it/50x50" alt=""/>
-                            <div className="media-body">
-                                <h5 className="mt-0">Commenter Name</h5>
-                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-                                scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-                                vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-                                nisi vulputate fringilla. Donec lacinia congue felis in
-                                faucibus.
-                            </div>
-                        </div>
-                        <div className="media mb-4">
-                            <img className="d-flex mr-3 rounded-circle"
-                                 src="http://placehold.it/50x50" alt=""/>
-                            <div className="media-body">
-                                <h5 className="mt-0">Commenter Name</h5>
-                                Cras sit amet nibh libero, in gravida nulla. Nulla vel metus
-                                scelerisque ante sollicitudin. Cras purus odio, vestibulum in
-                                vulputate at, tempus viverra turpis. Fusce condimentum nunc ac
-                                nisi vulputate fringilla. Donec lacinia congue felis in
-                                faucibus.
-                                <div className="media mt-4">
-                                    <img className="d-flex mr-3 rounded-circle"
-                                         src="http://placehold.it/50x50" alt=""/>
-                                    <div className="media-body">
-                                        <h5 className="mt-0">Commenter Name</h5>
-                                        Cras sit amet nibh libero, in gravida nulla. Nulla
-                                        vel metus scelerisque ante sollicitudin. Cras purus
-                                        odio, vestibulum in vulputate at, tempus viverra
-                                        turpis. Fusce condimentum nunc ac nisi vulputate
-                                        fringilla. Donec lacinia congue felis in faucibus.
-                                    </div>
-                                </div>
-                                <div className="media mt-4">
-                                    <img className="d-flex mr-3 rounded-circle"
-                                         src="http://placehold.it/50x50" alt=""/>
-                                    <div className="media-body">
-                                        <h5 className="mt-0">Commenter Name</h5>
-                                        Cras sit amet nibh libero, in gravida nulla. Nulla
-                                        vel metus scelerisque ante sollicitudin. Cras purus
-                                        odio, vestibulum in vulputate at, tempus viverra
-                                        turpis. Fusce condimentum nunc ac nisi vulputate
-                                        fringilla. Donec lacinia congue felis in faucibus.
-                                    </div>
-                                </div>
-                            </div>
+                        <div>
+                            {commentsShow}
                         </div>
                 </div>
             <Footer/>
