@@ -11,6 +11,7 @@ import CarouselSlider from "./CarouselSlider";
 import PostCreate from "./PostCreate";
 import PostPreview from "./PostPreview";
 import img from "../images/sand.jpeg"
+import MessageCreate from "./MessageCreate";
 class App extends Component {
     componentDidMount() {
         document.body.style.background = `url(${img}) repeat`
@@ -30,6 +31,7 @@ class App extends Component {
                     <Route exact path="/caro" component={CarouselSlider}/>
                     <Route exact path="/createPost" component={PostCreate}/>
                     <Route path='/posts/:id' exact={true} component={PostPreview}/>
+                    <Route exact path="/createMessage" component={MessageCreate}/>
                 </Switch>
             </BrowserRouter>
         )
