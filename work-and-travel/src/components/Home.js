@@ -63,7 +63,6 @@ class Home extends Component{
                 isLoading:false
             })
         }
-        console.log(this.state);
     }
     render() {
         const posts = this.state.Posts;

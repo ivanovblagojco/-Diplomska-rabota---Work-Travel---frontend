@@ -12,6 +12,7 @@ import PostCreate from "./PostCreate";
 import PostPreview from "./PostPreview";
 import img from "../images/sand.jpeg"
 import MessageCreate from "./MessageCreate";
+import MessagesPreview from "./MessagesPreview";
 class App extends Component {
     componentDidMount() {
         document.body.style.background = `url(${img}) repeat`
@@ -32,6 +33,7 @@ class App extends Component {
                     <Route exact path="/createPost" component={PostCreate}/>
                     <Route path='/posts/:id' exact={true} component={PostPreview}/>
                     <Route exact path="/createMessage" component={MessageCreate}/>
+                    <Route exact path="/messagesPreview" component={MessagesPreview}/>
                 </Switch>
             </BrowserRouter>
         )
