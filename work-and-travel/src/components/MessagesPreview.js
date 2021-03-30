@@ -15,9 +15,19 @@ class MessagesPreview extends Component{
             Conversations:[],
             isLoading:true,
             Messages:[],
-            logged_email:""
+            logged_email:"",
+            message: {
+                title:"",
+                description:"",
+                sender_email:"",
+                receiver_email:""
+            },
+            lastConversation:null
         }
         this.handleItemClick=this.handleItemClick.bind(this);
+        this.handleWriteMessageChange=this.handleWriteMessageChange.bind(this);
+        this.handleKeyDown=this.handleKeyDown.bind(this);
+
     }
     componentDidMount() {
         userService.getLoggedUser().then(data=> {
@@ -33,18 +43,53 @@ class MessagesPreview extends Component{
             })
         })
     }
-    handleItemClick (e, conversationName){
-        messageService.getConversationMessages(conversationName).then(data=>{
+    handleWriteMessageChange(e){
+        this.setState({
+            message:{
+                ...this.state.message,
+                description:e.target.value
+            }
+        })
+    }
+    handleKeyDown(e){
+        if(e.key==='Enter'){
+            userService.getLoggedUser().then(data=>{
+                this.setState({
+                    message:{
+                        ...this.state.message,
+                        sender_email:data.email,
+                        receiver_email:this.state.lastConversation.other_person}
+                })
+                messageService.createMessage(this.state.message).then(res=>{
+                    messageService.getConversationMessages(this.state.lastConversation.name).then(data=>{
+                        this.setState({
+                            Messages:data
+                        })
+                        document.getElementById("msg").value="";
+                        $(".chat").getNiceScroll().resize();
+                    })
+                })
+            });
+        }
+    }
+    handleItemClick (e, conversation){
+        this.setState({
+            lastConversation:conversation
+        })
+        messageService.getConversationMessages(conversation.name).then(data=>{
             this.setState({
                 Messages:data
             })
-            console.log(this.state.Messages)
+            $(".chat").niceScroll();
+            if($(".chat").getNiceScroll()!==null){
+                $(".chat").getNiceScroll().resize();
+            }
         })
-        $(".chat").niceScroll();
 
     }
     render() {
-        const conversations = this.state.Conversations;
+        const conversations = 
+            this.state.Conversations;
         const isLoading = this.state.isLoading;
         const messages = this.state.Messages;
 
@@ -55,7 +100,7 @@ class MessagesPreview extends Component{
             </div>)
         let listOfConversation = conversations.map(conversation=>{
             return(
-                <div className="user" value={conversation.name} onClick={e=>{this.handleItemClick(e, conversation.name)}}>
+                <div className="user" value={conversation.name} onClick={e=>{this.handleItemClick(e, conversation)}}>
                     <div className="avatar">
                         <img src="https://bootdey.com/img/Content/avatar/avatar1.png"
                              alt="User name"/>
@@ -120,7 +165,7 @@ class MessagesPreview extends Component{
                                             <h6>Конверзација</h6>
                                             {listOfMessages}
                                             <div className="answer-add">
-                                                <input placeholder="Write a message"/>
+                                                <input id="msg" placeholder="Нова порака..." onChange={e=>{this.handleWriteMessageChange(e)}} onKeyDown={e=>{this.handleKeyDown(e)}}/>
                                                     <span className="answer-btn answer-btn-1"></span>
                                                     <span className="answer-btn answer-btn-2"></span>
                                             </div>
