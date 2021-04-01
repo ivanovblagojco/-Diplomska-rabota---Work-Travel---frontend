@@ -7,7 +7,8 @@ import commentService from '../axios/commentService'
 import {Col} from "react-bootstrap";
 import PostCard from "./PostCard";
 import CommentPreview from "./CommentPreview";
-
+import ReactPaginate from 'react-paginate';
+import 'bootstrap/dist/css/bootstrap-grid.min.css'
 
 class PostPreview extends Component{
     constructor(props) {
@@ -16,14 +17,18 @@ class PostPreview extends Component{
             Post:null,
             isLoading:true,
             comment:"",
-            Comments: null
+            Comments: null,
+            page:0,
+            size:3,
+            totalElements:"",
+            totalPages:""
         }
 
         this.handleCommentChange = this.handleCommentChange.bind(this);
         this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
-
     }
     async componentDidMount() {
+        debugger;
         const id = window.location.pathname.split('/')[2];
         console.log(id);
 
@@ -35,9 +40,12 @@ class PostPreview extends Component{
             isLoading:false,
         })
 
-        const data2 = await commentService.getAllComments(this.state.Post.id);
+        const data2 = await commentService.getAllComments(this.state.page, this.state.size, this.state.Post.id);
         this.setState({
-            Comments:data2
+            Comments:data2.content,
+            totalElements:data2.totalElements,
+            pageCount:data2.totalPages
+
         })
     }
     handleCommentSubmit(){
@@ -51,9 +59,11 @@ class PostPreview extends Component{
 
         commentService.createComment(commentHelperFront).then(res=>{
             if(res!==undefined){
-                commentService.getAllComments(this.state.Post.id).then(data=>{
+                commentService.getAllComments(this.state.page, this.state.size, this.state.Post.id).then(data=>{
                     this.setState({
-                        Comments:data
+                        Comments:data.content,
+                        totalElements:data.totalElements,
+                        pageCount:data.totalPages
                     })
                 })
             }
@@ -66,7 +76,21 @@ class PostPreview extends Component{
             comment:e.target.value
         })
     }
+    handlePageClick = (data) => {
+        let selected = data.selected;
+        this.setState({ page: selected }, () => {
+            this.getUpdatesFromServer();
+        });
+    };
+    async getUpdatesFromServer(){
+        const data2 = await commentService.getAllComments(this.state.page, this.state.size, this.state.Post.id);
+        this.setState({
+            Comments:data2.content,
+            totalElements:data2.totalElements,
+            pageCount:data2.totalPages
 
+        })
+    }
     render() {
 
         const post = this.state.Post;
@@ -74,17 +98,18 @@ class PostPreview extends Component{
         const comments_list = this.state.Comments;
 
         let commentsShow;
-        if(comments_list!==null) {
-                commentsShow = comments_list.map(c => {
-                return (
-                    <CommentPreview comment={c}/>
-                )
-            })
-        }
+
 
 
         if(isLoading)
             return (<div>Loading</div>);
+        if(comments_list!==null) {
+            commentsShow = comments_list.map(c => {
+                return (
+                    <CommentPreview comment={c}/>
+                )
+            });
+        }
         return(
         <div>
             <Navbar/>
@@ -120,6 +145,28 @@ class PostPreview extends Component{
                         </div>
                         <div>
                             {commentsShow}
+                            <br/>
+                        </div>
+                        <div className="d-flex justify-content-center position-static">
+                            <ReactPaginate
+                                previousLabel={'previous'}
+                                nextLabel={'next'}
+                                breakLabel={'...'}
+                                pageCount={this.state.pageCount}
+                                marginPagesDisplayed={2}
+                                pageRangeDisplayed={5}
+                                onPageChange={this.handlePageClick}
+                                breakClassName={'page-item'}
+                                breakLinkClassName={'page-link'}
+                                containerClassName={'pagination'}
+                                pageClassName={'page-item'}
+                                pageLinkClassName={'page-link'}
+                                previousClassName={'page-item'}
+                                previousLinkClassName={'page-link'}
+                                nextClassName={'page-item'}
+                                nextLinkClassName={'page-link'}
+                                activeClassName={'active'}
+                            />
                         </div>
                 </div>
             <Footer/>

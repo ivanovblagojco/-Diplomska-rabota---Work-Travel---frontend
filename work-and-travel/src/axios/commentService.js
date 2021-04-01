@@ -21,10 +21,10 @@ const CommentService = {
                 }
             );
     },
-    getAllComments: (post_id) => {
+    getAllComments: (page, size, post_id) => {
 
         //const formParams = JSON.stringify(data);
-        return axiosNA.get(`/rest/getAllComments/${post_id}`,null,{
+        return axiosNA.get(`/rest/getAllComments/${page}/${size}/${post_id}`,null,{
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
