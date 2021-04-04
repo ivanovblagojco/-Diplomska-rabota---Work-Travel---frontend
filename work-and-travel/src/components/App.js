@@ -10,13 +10,15 @@ import PostCard from "./PostCard";
 import CarouselSlider from "./CarouselSlider";
 import PostCreate from "./PostCreate";
 import PostPreview from "./PostPreview";
-import img from "../images/sand.jpeg"
+import img from "../images/smoke-white.png"
 import MessageCreate from "./MessageCreate";
 import MessagesPreview from "./MessagesPreview";
+import Profile from "./Profile";
 class App extends Component {
     componentDidMount() {
-        document.body.style.background = `url(${img}) repeat`
-        document.body.style.color = 'white'
+        //document.body.style.background = `url(${img}) repeat`
+        document.body.style.background = 'white'
+        document.body.style.color = 'black'
     }
     render() {
         return (
@@ -34,6 +36,7 @@ class App extends Component {
                     <Route path='/posts/:id' exact={true} component={PostPreview}/>
                     <Route exact path="/createMessage" component={MessageCreate}/>
                     <Route exact path="/messagesPreview" component={MessagesPreview}/>
+                    <Route exact path="/profile" component={Profile}/>
                 </Switch>
             </BrowserRouter>
         )

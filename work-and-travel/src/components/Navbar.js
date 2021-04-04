@@ -12,7 +12,16 @@ class Navbar extends Component{
             buttons = (
                 <ul className="nav navbar-nav flex-row justify-content-between ml-auto">
                     <li className="nav-item"><Link to={'/'} class="nav-link" onClick={()=>localStorage.clear()}>Одјави се</Link></li>
-                    <li className="nav-item"><div className="nav-link text-info"> {localStorage.getItem("email")}</div></li>
+                    <li className="nav-item dropdown">
+                        <a className="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink"
+                           data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            {localStorage.getItem("email")}
+                        </a>
+                        <div className="dropdown-menu" aria-labelledby="navbarDropdownMenuLink" style={{background:"#17a2b8"}}>
+                            <a className="dropdown-item text-white" href="/messagesPreview">Мои пораки</a>
+                            <a className="dropdown-item text-white" href="/profile">Профил</a>
+                        </div>
+                    </li>
                 </ul>
             )
         }else{
@@ -25,9 +34,9 @@ class Navbar extends Component{
         }
         return (
             <div className="App">
-                <nav className="navbar navbar-expand-lg navbar-dark bg-dark static-top" role="navigation">
+                <nav className="navbar navbar-expand-lg navbar-dark static-top" role="navigation">
                     <div className="container">
-                        <a className="navbar-brand" href="#">Work&Travel</a>
+                        <a className="navbar-brand" href="/">Work&Travel</a>
                         <button className="navbar-toggler border-0" type="button" data-toggle="collapse" data-target="#exCollapsingNavbar">
                             &#9776;
                         </button>
@@ -35,8 +44,6 @@ class Navbar extends Component{
                             <ul className="nav navbar-nav">
                                 <li className="nav-item"><a href="/" className="nav-link">Почетна</a></li>
                                 <li className="nav-item"><a href="/createPost" className="nav-link">Креирај објава</a></li>
-                                <li className="nav-item"><a href="#" className="nav-link">Link</a></li>
-                                <li className="nav-item"><a href="#" className="nav-link">Link</a></li>
                             </ul>
                             {buttons}
                         </div>

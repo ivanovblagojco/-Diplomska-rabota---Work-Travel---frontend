@@ -83,9 +83,9 @@ class Home extends Component{
                 <Navbar/>
                 <CarouselSlider/>
                     <div className="d-flex justify-content-center">
-                        <Link className="btn btn-outline-light btn-sm mr-1" to="#" onClick={this.handleAgencyClick}>Објави од агенции</Link>
-                        <Link className="btn btn-outline-light btn-sm ml-1" to="#" onClick={this.handleUsersClick}>Објави од корисници</Link>
-                        <Link className="btn btn-outline-light btn-sm ml-1" to="#" onClick={this.handleAllClick}>Сите</Link>
+                        <Link className="btn btn-outline-light btn-sm mr-1" style={{background :"#17a2b8"}} to="#" onClick={this.handleAgencyClick}>Објави од агенции</Link>
+                        <Link className="btn btn-outline-light btn-sm ml-1" style={{background :"#17a2b8"}} to="#" onClick={this.handleUsersClick}>Објави од корисници</Link>
+                        <Link className="btn btn-outline-light btn-sm ml-1" style={{background :"#17a2b8"}} to="#" onClick={this.handleAllClick}>Сите</Link>
                     </div>
                     <br/>
 

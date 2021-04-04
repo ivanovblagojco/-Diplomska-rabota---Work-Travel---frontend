@@ -77,7 +77,7 @@ class Login extends Component{
                     <div id="login">
                         <Navbar/>
                         <br/>
-                        <h3 className="text-center text-white pt-5">Најава на корисник</h3>
+                        <h3 className="text-center pt-5" style={{color:"#17a2b8"}}>Најава на корисник</h3>
                         <div className="container">
                             <div id="login-row" className="row justify-content-center align-items-center">
                                 <div id="login-column" className="col-md-6">

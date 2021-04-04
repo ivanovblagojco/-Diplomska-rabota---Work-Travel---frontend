@@ -26,7 +26,7 @@ class ResetPassword extends Component{
                 <div id="reset">
                     <Navbar/>
                     <br/>
-                    <h3 className="text-center text-white pt-5">Поставување нова лозинка</h3>
+                    <h3 className="text-center pt-5" style={{color:"#17a2b8"}}>Поставување нова лозинка</h3>
                     <div className="container">
                         <div id="reset-row" className="row justify-content-center align-items-center">
                             <div id="reset-column" className="col-md-6">

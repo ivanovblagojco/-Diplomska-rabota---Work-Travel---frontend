@@ -1,4 +1,5 @@
 import axios from 'axios'
+import axiosA from'./axios'
 
 const AUTH_TOKEN = 'auth_token';
 
@@ -26,6 +27,28 @@ const AuthenticationService = {
                 console.log(err);
             }
         );
+    },
+    updateUser: (user) => {
+        const data = {
+            ...user
+        }
+        console.log(user)
+        const formParams = JSON.stringify(data);
+        return axiosA.put("http://localhost:8080/rest/userUpdateUser",formParams, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            }
+        }).then(res =>{
+                window.location.href = '/';
+            }
+        )
+            .catch(
+                err => {
+                    console.log(err);
+                }
+            );
     },
     Login: (email, password) => {
         return axios.post("http://localhost:8080/rest/login", null, {

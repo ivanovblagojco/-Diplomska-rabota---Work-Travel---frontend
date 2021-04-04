@@ -7,7 +7,7 @@ class Footer extends Component{
                 <br/>
                 <br/>
                 <br/>
-                    <div className="footer bg-dark">
+                    <div className="footer" style={{background :"#17a2b8"}}>
                         <p>Проект изработен за дипломска работа - 2020 година.</p>
                     </div>
             </div>

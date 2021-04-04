@@ -9,7 +9,7 @@ class PostCard extends Component{
         return(
             <div>
                     <div>
-                        <div className="card text-white bg-primary flex-md-row mb-4 shadow-sm h-md-250">
+                        <div className="card text-white flex-md-row mb-4 shadow-sm h-md-250" style={{background:"#17a2b8"}}>
                             <div className="card-body d-flex flex-column align-items-start">
                                 <strong className="d-inline-block mb-2 text-white">{this.props.post.title}</strong>
 

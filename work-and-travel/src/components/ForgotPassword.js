@@ -18,7 +18,7 @@ class ForgotPassword extends Component{
                 <div id="forgot">
                     <Navbar/>
                     <br/>
-                    <h3 className="text-center text-white pt-5">Барање за обнова на лозинка</h3>
+                    <h3 className="text-center pt-5" style={{color:"#17a2b8"}}>Барање за обнова на лозинка</h3>
                     <div className="container">
                         <div id="forgot-row" className="row justify-content-center align-items-center">
                             <div id="forgot-column" className="col-md-6">

@@ -5,3 +5,6 @@ button:focus {
 .navbar .dropdown-menu .form-control {
     width: 200px;
 }
+.navbar{
+    background-color: #17a2b8;
+}

@@ -11,7 +11,6 @@ const UserService = {
                 'Access-Control-Allow-Origin': '*',
             }
         }).then(res =>{
-            console.log(res.data);
             return res.data;
             }
         )

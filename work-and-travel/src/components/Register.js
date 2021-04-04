@@ -20,13 +20,13 @@ class Register extends Component{
                     <Navbar/>
                     <br/>
                     <div id="register">
-                        <h3 className="text-center text-white pt-5">Регистрација на корисник</h3>
+                        <h3 className="text-center pt-5" style={{color:"#17a2b8"}}>Регистрација на корисник</h3>
                         <div className="container">
                             <div id="register-row" className="row justify-content-center align-items-center">
                                 <div id="register-column" className="col-md-6">
                                     <div id="register-box" className="col-md-12">
                                         <form id="register-form" className="form" action="" method="post" onSubmit={this.handleSubmit}>
-                                            <h3 className="text-center text-info">Регистрација</h3>
+                                            <h3 className="text-center text-info" style={{color:"#17a2b8"}}>Регистрација</h3>
                                             <div className="form-group">
                                                 <label>Име</label>
                                                 <input type="text" className="form-control" placeholder="Име" onChange={e=>this.name = e.target.value}/>
