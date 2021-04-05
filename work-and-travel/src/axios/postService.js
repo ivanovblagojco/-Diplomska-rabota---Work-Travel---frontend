@@ -11,7 +11,7 @@ const PostService = {
                 'Access-Control-Allow-Origin': '*',
             }
         }).then(res =>{
-                window.location.href = '/login';
+                return res;
             }
         )
             .catch(

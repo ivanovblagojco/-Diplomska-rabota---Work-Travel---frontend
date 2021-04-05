@@ -7,7 +7,12 @@ import Home from "./Home";
 import Navbar from './Navbar'
 import React, { useEffect, useState } from "react";
 import {Link} from "react-router-dom";
+import 'react-notifications-component/dist/theme.css'
+import ReactNotification from 'react-notifications-component'
+import { store } from 'react-notifications-component';
+
 const AUTH_TOKEN = 'auth_token';
+
 
 
 /*global FB*/
@@ -45,7 +50,33 @@ class Login extends Component{
                         localStorage.setItem("email", data.email);
                         window.location.href="/";
                     });
-
+                    store.addNotification({
+                        title: "Успешно!",
+                        message: "Добредојдовте во системот",
+                        type: "success",
+                        insert: "top",
+                        container: "top-center",
+                        animationIn: ["animate__animated", "animate__fadeIn"],
+                        animationOut: ["animate__animated", "animate__fadeOut"],
+                        dismiss: {
+                          duration: 3000,
+                          onScreen: true
+                        }
+                      });    
+                }else{
+                    store.addNotification({
+                        title: "Погрешно корисничко име или лозинка!",
+                        message: "Oбидете се повторно!",
+                        type: "danger",
+                        insert: "top",
+                        container: "top-center",
+                        animationIn: ["animate__animated", "animate__fadeIn"],
+                        animationOut: ["animate__animated", "animate__fadeOut"],
+                        dismiss: {
+                          duration: 3000,
+                          onScreen: true
+                        }
+                      });     
                 }
             }
         )
@@ -76,6 +107,7 @@ class Login extends Component{
             return(<div>
                     <div id="login">
                         <Navbar/>
+                        <ReactNotification/>
                         <br/>
                         <h3 className="text-center pt-5" style={{color:"#17a2b8"}}>Најава на корисник</h3>
                         <div className="container">
@@ -86,11 +118,11 @@ class Login extends Component{
                                             <h3 className="text-center text-info">Најава</h3>
                                             <div className="form-group">
                                                 <label>Е-пошта</label>
-                                                <input type="email" className="form-control" placeholder="Е-пошта" onChange={e=>this.email = e.target.value}/>
+                                                <input type="email" className="form-control" placeholder="Е-пошта" onChange={e=>this.email = e.target.value} required />
                                             </div>
                                             <div className="form-group">
                                                 <label>Лозинка</label>
-                                                <input type="password" className="form-control" placeholder="Лозинка" onChange={e=>this.password = e.target.value}/>
+                                                <input type="password" className="form-control" placeholder="Лозинка" onChange={e=>this.password = e.target.value} required />
                                             </div>
                                             <button id="btn-submit" className="btn-block btn-primary">Најави се</button>
                                         </form>

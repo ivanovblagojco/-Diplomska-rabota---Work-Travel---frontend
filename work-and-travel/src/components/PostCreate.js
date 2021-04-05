@@ -4,6 +4,9 @@ import Navbar from './Navbar'
 import Footer from './Footer'
 import '../css/postCreate.css'
 import axiosService from '../axios/postService'
+import 'react-notifications-component/dist/theme.css'
+import ReactNotification from 'react-notifications-component'
+import { store } from 'react-notifications-component';
 class PostCreate extends Component{
     constructor(props) {
         super(props);
@@ -23,7 +26,11 @@ class PostCreate extends Component{
         formData.append("description", this.state.description);
 
         console.log(formData)
-        axiosService.addNewPost(formData);
+        axiosService.addNewPost(formData).then(res=>{
+            if(res!==undefined){
+                window.location.href="/";
+            }
+        });
 
     }
 
@@ -49,6 +56,7 @@ class PostCreate extends Component{
         return(
             <div>
                 <Navbar/>
+                <ReactNotification/>
                 <br/>
                 <br/>
                 <br/>
@@ -56,15 +64,15 @@ class PostCreate extends Component{
                     <Form onSubmit={this.handleSubmit}>
                         <Form.Group controlId="title">
                             <Form.Label>Наслов</Form.Label>
-                            <Form.Control type="text" placeholder="Внеси наслов" onChange={e=>this.setState({title:  e.target.value})} />
+                            <Form.Control type="text" placeholder="Внеси наслов" onChange={e=>this.setState({title:  e.target.value})} required/>
                         </Form.Group>
                         <Form.Group controlId="description">
                             <Form.Label>Опис</Form.Label>
-                            <Form.Control as="textarea" rows={20} placeholder="Внеси опис" onChange={e=>this.setState({description:  e.target.value})} />
+                            <Form.Control as="textarea" rows={20} placeholder="Внеси опис" onChange={e=>this.setState({description:  e.target.value})} required/>
                         </Form.Group>
                         <div>
                             <div>
-                                <input type="file" accept="image/*" onChange={this.onFileChange} />
+                                <input type="file" accept="image/*" onChange={this.onFileChange} required/>
                             </div>
                             {this.fileData()}
                         </div>

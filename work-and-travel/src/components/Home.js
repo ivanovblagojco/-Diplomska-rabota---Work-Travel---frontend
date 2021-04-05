@@ -91,7 +91,7 @@ class Home extends Component{
 
                 <Container fluid>
                     <Row>
-                        {postCards}>
+                        {postCards}
                     </Row>
                 </Container>
                 <Footer/>

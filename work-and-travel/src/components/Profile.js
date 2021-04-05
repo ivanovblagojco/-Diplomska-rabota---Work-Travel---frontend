@@ -7,6 +7,9 @@ import Footer from "./Footer";
 import userService from '../axios/userService'
 import {PulseLoader} from "react-spinners";
 import {Button} from "react-bootstrap";
+import 'react-notifications-component/dist/theme.css'
+import ReactNotification from 'react-notifications-component'
+import { store } from 'react-notifications-component';
 class Profile extends Component{
     constructor(props) {
         super(props);
@@ -14,19 +17,30 @@ class Profile extends Component{
         this.state={
             User:null,
             isLoading:true,
-            isShowing:false
+            isShowing:false,
+            oldPassword:"",
+            newPassword:""
         }
         this.handleChangeCheckBox=this.handleChangeCheckBox.bind(this);
+        this.handleSubmitPassword=this.handleSubmitPassword.bind(this);
+        this.validatePassword=this.validatePassword.bind(this);
     }
     async componentDidMount() {
-        debugger;
         const data = await userService.getLoggedUser();
         this.setState({
             User:data,
             isLoading:false
         })
     }
-
+    validatePassword(){
+        let password = document.getElementById("password")
+    , confirm_password = document.getElementById("confirm_password");
+    if(password.value != confirm_password.value) {
+      confirm_password.setCustomValidity("Passwords Don't Match");
+    } else {
+      confirm_password.setCustomValidity('');
+    }
+  }
     handleSubmit = (e) =>{
         e.preventDefault();
 
@@ -35,7 +49,21 @@ class Profile extends Component{
             surname: this.state.User.surname,
             email: this.state.User.email
         }
-        authenticationService.updateUser(data);
+        authenticationService.updateUser(data).then(res=>{
+            store.addNotification({
+                title: "Успешно променети податоци!",
+                message: "Успешно",
+                type: "success",
+                insert: "top",
+                container: "top-center",
+                animationIn: ["animate__animated", "animate__fadeIn"],
+                animationOut: ["animate__animated", "animate__fadeOut"],
+                dismiss: {
+                  duration: 3000,
+                  onScreen: true
+                }
+              }); 
+        });
     }
     handleChangeCheckBox (e) {
         e.preventDefault();
@@ -44,7 +72,51 @@ class Profile extends Component{
             isShowing:!this.state.isShowing
         });
     }
+    onChangePassword(e){
+        this.state.newPassword = e.target.value;
+    }
+    handleSubmitPassword (e){
+        debugger;
+        e.preventDefault();
 
+        const email=localStorage.getItem("email");
+        const oldPassword=this.state.oldPassword;
+        const newPassword=this.state.newPassword;
+    
+
+        authenticationService.userChangesPassword(email,oldPassword, newPassword).then(res=>{
+            if(res!=undefined){
+                store.addNotification({
+                    title: "Успешно променета лозинка!",
+                    message: "Успешно",
+                    type: "success",
+                    insert: "top",
+                    container: "top-center",
+                    animationIn: ["animate__animated", "animate__fadeIn"],
+                    animationOut: ["animate__animated", "animate__fadeOut"],
+                    dismiss: {
+                      duration: 3000,
+                      onScreen: true
+                    }
+                  });   
+            }else{
+                store.addNotification({
+                    title: "Неуспешна промена на лозинка!",
+                    message: "Oбидете се повторно!",
+                    type: "danger",
+                    insert: "top",
+                    container: "top-center",
+                    animationIn: ["animate__animated", "animate__fadeIn"],
+                    animationOut: ["animate__animated", "animate__fadeOut"],
+                    dismiss: {
+                      duration: 3000,
+                      onScreen: true
+                    }
+                  });   
+            }
+        })
+
+    }
 
     render() {
         const isLoading = this.state.isLoading;
@@ -59,21 +131,20 @@ class Profile extends Component{
             if(this.state.isShowing){
                 helpForm=(
                     <div>
-                        <form>
+                        <form onSubmit={this.handleSubmitPassword} action="" method="post">
                             <div className="form-group">
                                 <label>Стара лозинка</label>
-                                <input type="password" className="form-control" placeholder="Стара лозинка" onChange={e=>this.email = e.target.value}/>
+                                <input type="password" className="form-control" placeholder="Стара лозинка" onChange={e=>this.state.oldPassword = e.target.value} required/>
                             </div>
                             <div className="form-group">
                                 <label>Нова лозинка</label>
-                                <input type="passwordNew" className="form-control" placeholder="Нова лозинка" onChange={e=>this.email = e.target.value}/>
+                                <input id="password" type="password" className="form-control" placeholder="Нова лозинка" onChange={e => { this.onChangePassword(e); this.validatePassword() }} required/>
                             </div>
                             <div className="form-group">
                                 <label>Потврди нова лозинка</label>
-                                <input type="passwordConfirm" className="form-control" placeholder="Потврди нова лозинка" onChange={e=>this.email = e.target.value}/>
+                                <input id="confirm_password" type="password" className="form-control" placeholder="Потврди нова лозинка" onChange={e => { this.onChangePassword(e); this.validatePassword() }} required/>
                             </div>
-                            <button id="btn-submit" className="btn-block">Зачувај нова лозинка</button>
-
+                            <button id="btn-submit" className="btn-block">Зачувај ја лозинката</button>
                         </form>
                     </div>
                 )
@@ -81,6 +152,7 @@ class Profile extends Component{
             return(
                 <div>
                     <Navbar/>
+                    <ReactNotification/>
                     <br/>
                     <div id="profile">
                         <h3 className="text-center pt-5" style={{color:"#17a2b8"}}>Основни информации за корисник</h3>
@@ -107,10 +179,11 @@ class Profile extends Component{
                                             <div>
                                                 <Button id="checkBox" type="checkbox" className="btn-block mt-1 " onClick={e=>this.handleChangeCheckBox(e)}>Прикажи форма за промена на лозинка &#x2193;</Button>
                                             </div>
-
-                                            {helpForm}
+                                        
+                                            
 
                                         </form>
+                                        {helpForm}
                                     </div>
                                 </div>
                             </div>

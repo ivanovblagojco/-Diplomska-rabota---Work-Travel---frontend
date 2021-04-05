@@ -19,7 +19,7 @@ const AuthenticationService = {
                 'password': password
             }
         }).then(res =>{
-            window.location.href = '/login';
+                return res;
              }
         )
             .catch(
@@ -41,8 +41,31 @@ const AuthenticationService = {
                 'Access-Control-Allow-Origin': '*',
             }
         }).then(res =>{
-                window.location.href = '/';
+                return res;
             }
+        )
+            .catch(
+                err => {
+                    console.log(err);
+                }
+            );
+    },
+    userChangesPassword: (email, oldPassword, newPassword) => {
+        debugger;
+
+        return axiosA.put("http://localhost:8080/rest/userChangesPassword",null, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+                'email':email,
+                'oldPassword':oldPassword,
+                'newPassword':newPassword
+
+            }
+        }).then(res =>{
+            return res;            
+        }
         )
             .catch(
                 err => {
@@ -104,7 +127,6 @@ const AuthenticationService = {
                 'email': email
             }
         }).then(res =>{
-                window.location.href = '/login';
             }
         )
             .catch(
