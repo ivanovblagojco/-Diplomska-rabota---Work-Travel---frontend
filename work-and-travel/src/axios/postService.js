@@ -20,10 +20,10 @@ const PostService = {
                 }
             );
     },
-    getAllPosts: () => {
+    getAllPosts: (page,size) => {
 
         //const formParams = JSON.stringify(data);
-        return axios.get("/rest/getAllPosts", null, {
+        return axios.get(`/rest/getAllPosts/${page}/${size}`, null, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -76,10 +76,10 @@ const PostService = {
                 }
             );
     },
-    getAllPostsFromUsers: () => {
+    getAllPostsFromUsers: (page, size) => {
 
         //const formParams = JSON.stringify(data);
-        return axios.get("/rest/getAllPostsFromUsers", null, {
+        return axios.get(`/rest/getAllPostsFromUsers/${page}/${size}`, null, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -95,10 +95,10 @@ const PostService = {
                 }
             );
     },
-    getAllPostsFromAgency: () => {
+    getAllPostsFromAgency: (page, size) => {
 
         //const formParams = JSON.stringify(data);
-        return axios.get("/rest/getAllPostsFromAgency", null, {
+        return axios.get(`/rest/getAllPostsFromAgency/${page}/${size}`, null, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
