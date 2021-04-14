@@ -1,5 +1,5 @@
 import axios from './axios'
-
+import axiosNA from 'axios'
 const PostService = {
     addNewPost: (formData) => {
 
@@ -23,7 +23,7 @@ const PostService = {
     getAllPosts: (page,size) => {
 
         //const formParams = JSON.stringify(data);
-        return axios.get(`/rest/getAllPosts/${page}/${size}`, null, {
+        return axiosNA.get(`/rest/getAllPosts/${page}/${size}`, null, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -41,7 +41,7 @@ const PostService = {
     },
     getPost: (id) => {
 
-        return axios.get(`rest/getPost/${id}`, null, {
+        return axiosNA.get(`/rest/getPost/${id}`, null, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -60,7 +60,7 @@ const PostService = {
     getLastThreePosts: () => {
 
         //const formParams = JSON.stringify(data);
-        return axios.get("/rest/getLastThreePosts", null, {
+        return axiosNA.get("/rest/getLastThreePosts", null, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -79,7 +79,7 @@ const PostService = {
     getAllPostsFromUsers: (page, size) => {
 
         //const formParams = JSON.stringify(data);
-        return axios.get(`/rest/getAllPostsFromUsers/${page}/${size}`, null, {
+        return axiosNA.get(`/rest/getAllPostsFromUsers/${page}/${size}`, null, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',
@@ -98,7 +98,7 @@ const PostService = {
     getAllPostsFromAgency: (page, size) => {
 
         //const formParams = JSON.stringify(data);
-        return axios.get(`/rest/getAllPostsFromAgency/${page}/${size}`, null, {
+        return axiosNA.get(`/rest/getAllPostsFromAgency/${page}/${size}`, null, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',

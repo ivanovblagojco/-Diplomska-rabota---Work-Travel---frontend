@@ -21,6 +21,24 @@ const CommentService = {
                 }
             );
     },
+    deleteComment: (id) => {
+
+        return axios.delete(`/rest/deleteComment/${id}`,null, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            }
+        }).then(res =>{
+                return res;
+            }
+        )
+            .catch(
+                err => {
+                    console.log(err);
+                }
+            );
+    },
     getAllComments: (page, size, post_id) => {
 
         //const formParams = JSON.stringify(data);

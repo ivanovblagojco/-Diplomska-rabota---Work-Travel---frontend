@@ -26,6 +26,7 @@ class PostPreview extends Component{
 
         this.handleCommentChange = this.handleCommentChange.bind(this);
         this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
+        this.updateComments = this.updateComments.bind(this);
     }
     async componentDidMount() {
         debugger;
@@ -46,6 +47,16 @@ class PostPreview extends Component{
             totalElements:data2.totalElements,
             pageCount:data2.totalPages
 
+        })
+    }
+    updateComments(){
+        commentService.getAllComments(this.state.page, this.state.size, this.state.Post.id).then(data2=>{
+            this.setState({
+                Comments:data2.content,
+                totalElements:data2.totalElements,
+                pageCount:data2.totalPages
+    
+            })
         })
     }
     handleCommentSubmit(){
@@ -106,7 +117,7 @@ class PostPreview extends Component{
         if(comments_list!==null) {
             commentsShow = comments_list.map(c => {
                 return (
-                    <CommentPreview comment={c}/>
+                    <CommentPreview comment={c} updateCommentss={this.updateComments}/>
                 )
             });
         }
@@ -117,11 +128,11 @@ class PostPreview extends Component{
 
                         <h1 className="mt-4">{post.title}</h1>
                         <p className="lead">
-                            by
-                            <a href="#">Start Bootstrap</a>
+                            Креирано од: {post.creator}
+                            <a href="#"></a>
                         </p>
                         <hr/>
-                        <p>Posted on January 1, 2019 at 12:00 PM</p>
+                        <p>{post.date_created}</p>
                         <hr/>
                         <img className="img-fluid rounded" src={`data:${post.mime_type};base64,${post.bytes}`} alt="" style={{width:"100%", height:"300px"}}/>
                         <hr/>
