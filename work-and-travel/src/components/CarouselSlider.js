@@ -45,7 +45,7 @@ class CarouselSlider extends Component{
                             className="d-block w-100"
                             src={`data:${posts[0].mime_type};base64,${posts[0].bytes}`}
                             alt="First slide"
-                            style={{height:"100vh"}}
+                            style={{height:"100vh", filter:"blur(4px)"}}
                         />
                         </Link>
                         <Carousel.Caption>
@@ -59,7 +59,7 @@ class CarouselSlider extends Component{
                             className="d-block w-100"
                             src={`data:${posts[1].mime_type};base64,${posts[1].bytes}`}
                             alt="Second slide"
-                            style={{height:"100vh"}}
+                            style={{height:"100vh",filter:"blur(4px)"}}
                         />
                         </Link>
                         <Carousel.Caption>
@@ -73,7 +73,7 @@ class CarouselSlider extends Component{
                             className="d-block w-100"
                             src={`data:${posts[2].mime_type};base64,${posts[2].bytes}`}
                             alt="Third slide"
-                            style={{height:"100vh"}}
+                            style={{height:"100vh", filter:"blur(4px)"}}
                         /></Link>
 
                         <Carousel.Caption>

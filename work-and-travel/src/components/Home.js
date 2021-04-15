@@ -3,7 +3,7 @@ import Navbar from'./Navbar'
 import Footer from "./Footer";
 import PostCard from "./PostCard";
 import axiosService from '../axios/postService'
-import {Col, Container, Row} from "react-bootstrap";
+import {Col, Container, NavLink, Row} from "react-bootstrap";
 import CarouselSlider from "./CarouselSlider";
 import {Link} from "react-router-dom";
 import '../css/home.css'
@@ -19,7 +19,7 @@ class Home extends Component{
             Posts:[],
             isLoading : true,
             page:0,
-            size:3,
+            size:4,
             totalElements:"",
             totalPages:"",
             last_clicked:""
@@ -118,13 +118,13 @@ class Home extends Component{
                 <Navbar/>
                 <CarouselSlider/>
                     <div className="d-flex justify-content-center">
-                        <Link className="btn btn-outline-light btn-sm mr-1" style={{background :"#17a2b8"}} to="#" onClick={this.handleAgencyClick}>Објави од агенции</Link>
-                        <Link className="btn btn-outline-light btn-sm ml-1" style={{background :"#17a2b8"}} to="#" onClick={this.handleUsersClick}>Објави од корисници</Link>
-                        <Link className="btn btn-outline-light btn-sm ml-1" style={{background :"#17a2b8"}} to="#" onClick={this.handleAllClick}>Сите</Link>
+                        <NavLink className="btn btn-outline-light btn-sm mr-1" style={{background :"#1F75FE"}} to="#" onClick={this.handleAgencyClick}>Објави од агенции</NavLink>
+                        <NavLink className="btn btn-outline-light btn-sm ml-1" style={{background :"#1F75FE"}} to="#" onClick={this.handleUsersClick}>Објави од корисници</NavLink>
+                        <NavLink className="btn btn-outline-light btn-sm ml-1" style={{background :"#1F75FE"}} to="#" onClick={this.handleAllClick}>Сите</NavLink>
                     </div>
                     <br/>
 
-                <Container fluid>
+                <Container fluid="sm">
                     <Row>
                         {postCards}
                     </Row>
