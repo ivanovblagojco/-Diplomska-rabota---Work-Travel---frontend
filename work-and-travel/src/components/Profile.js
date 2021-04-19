@@ -144,7 +144,7 @@ class Profile extends Component{
                                 <label>Потврди нова лозинка</label>
                                 <input id="confirm_password" type="password" className="form-control" placeholder="Потврди нова лозинка" onChange={e => { this.onChangePassword(e); this.validatePassword() }} required/>
                             </div>
-                            <button id="btn-submit" className="btn-block">Зачувај ја лозинката</button>
+                            <button id="btn-submit" className="btn-block btn btn-primary">Зачувај ја лозинката</button>
                         </form>
                     </div>
                 )
@@ -155,13 +155,13 @@ class Profile extends Component{
                     <ReactNotification/>
                     <br/>
                     <div id="profile">
-                        <h3 className="text-center pt-5" style={{color:"#17a2b8"}}>Основни информации за корисник</h3>
+                        <h3 className="text-center pt-5" style={{color:"#1F75FE"}}>Основни информации за корисник</h3>
                         <div className="container">
                             <div id="profile-row" className="row justify-content-center align-items-center">
                                 <div id="profile-column" className="col-md-6">
                                     <div id="profile-box" className="col-md-12">
                                         <form id="profile-form" className="form" action="" method="post" onSubmit={this.handleSubmit}>
-                                            <h3 className="text-center text-info" style={{color:"#17a2b8"}}>Измени информации</h3>
+                                            <h3 className="text-center text-info" style={{color:"#1F75FE"}}>Измени информации</h3>
                                             <div className="form-group">
                                                 <label>Име</label>
                                                 <input type="text" className="form-control" placeholder="Име" onChange={e=>this.state.User.name = e.target.value} defaultValue={user.name}/>
@@ -174,7 +174,7 @@ class Profile extends Component{
                                                 <label>Е-пошта</label>
                                                 <input type="email" className="form-control" placeholder="Е-пошта" defaultValue={user.email} disabled/>
                                             </div>
-                                            <button id="btn-submit" className="btn-block">Зачувај промени</button>
+                                            <button id="btn-submit" className="btn-block btn btn-primary">Зачувај промени</button>
                                             <hr/>
                                             <div>
                                                 <Button id="checkBox" type="checkbox" className="btn-block mt-1 " onClick={e=>this.handleChangeCheckBox(e)}>Прикажи форма за промена на лозинка &#x2193;</Button>

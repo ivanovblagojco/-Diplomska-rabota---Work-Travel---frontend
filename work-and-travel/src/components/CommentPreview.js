@@ -3,6 +3,8 @@ import {Link} from "react-router-dom";
 import {Button} from "react-bootstrap";
 import MessageCreate from "./MessageCreate";
 import commentService from "../axios/commentService"
+import { faArchive, faCashRegister, faHome, faInbox, faInfo, faInfoCircle, faNewspaper, faPlus, faRegistered, faSignInAlt, faSignOutAlt, faTrash, faUser, faUserEdit, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 class CommentPreview extends Component{
     constructor(props) {
         super(props);
@@ -36,18 +38,20 @@ class CommentPreview extends Component{
         const id = this.props.comment.id;
         let buttonDelete=null;
         if(email === localStorage.getItem("email")){
-            buttonDelete = (<button value={id} onClick={this.deleteComment} type="button" class="close" aria-label="Close" style={{display:"contents", color:"red"}}>
-            &nbsp;x
-        </button>)
+            buttonDelete = (<button value={id} onClick={this.deleteComment} type="button" className="fa fa-lg fa-trash"  style={{display:"contents", color:"red"}}>
+        </button>
+        )
         }
         return(
-            <div className="media mb-4" style={{border:"3px dashed #17a2b8", padding:"10px", borderRadius: "30px"}}>
+            <div className="media mb-4" style={{background:"#c9f0ff", padding:"10px", borderRadius: "30px"}}>
                 <img className="d-flex mr-3 rounded-circle"
                      src="https://bootdey.com/img/Content/avatar/avatar2.png" alt="" style={{height:"50px", width:"50px"}} />
                 <div className="media-body">
                     <h5 className="mt-0">{this.props.comment.email}
-                        {buttonDelete}
-                        <Button className="btn-success btn-sm" onClick={this.handleClickCreateMessage} style={{float:"right"}}>Испрати порака</Button>
+                        <div style={{float:"right"}}>
+                            {buttonDelete}
+                            <button className="fa fa-lg fa-envelope" type="button" onClick={this.handleClickCreateMessage} style={{display:"contents", color:"green"}}></button>
+                        </div>
                         {this.state.clickedCreateMessage ? <MessageCreate updateParent={ this.updateState } email={this.props.comment.email} /> : null}
                     </h5>
                     <p style={{fontSize:"12px"}}>{this.props.comment.date_created}</p>

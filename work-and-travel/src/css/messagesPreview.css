@@ -1,5 +1,6 @@
 body{
-    background:#eee;
+    background:black;
+   
 }
 .row.row-broken {
     padding-bottom: 0;
@@ -11,7 +12,7 @@ body{
     height: calc(100vh - 180px);
 }
 .decor-default {
-    background-color: white;
+    background-color: #03A9F4;
 }
 .chat-users h6 {
     font-size: 20px;

@@ -6,7 +6,7 @@ body {
 #profile .container #profile-row #profile-column #profile-box {
     margin-top: 120px;
     max-width: 600px;
-    height: 800px;
+    height: 820px;
     border: 1px solid #9C9C9C;
     background-color: white;
     border-radius: 25px;
@@ -18,5 +18,5 @@ body {
     margin-top: -55px;
 }
 #btn-submit{
-    background-color: #17a2b8;
+    background-color: green;
 }

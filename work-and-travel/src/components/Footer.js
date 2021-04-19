@@ -3,15 +3,15 @@ import "../css/footer.scss"
 class Footer extends Component{
     render() {
         return(
-            <div class="main-div">
+            <div class="main-div" >
 
-                <footer class="flex-rw">
+                <footer class="flex-rw" style={{marginTop:"100px"}}>
 
                     <ul class="footer-list-top">
                         <li>
                             <h4 class="footer-list-header">Содржина</h4></li>
                         <li><a href='/' class="generic-anchor footer-list-anchor" itemprop="significantLink">Почетна</a></li>
-                        <li><a href='/createPost' class="generic-anchor footer-list-anchor" itemprop="significantLink">Креирај објава</a></li>
+                        <li><a href='/travel' class="generic-anchor footer-list-anchor" itemprop="significantLink">Патувања</a></li>
                     </ul>
                     <ul class="footer-list-top">
                         <li>

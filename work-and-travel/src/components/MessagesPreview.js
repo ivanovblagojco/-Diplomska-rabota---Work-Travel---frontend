@@ -6,6 +6,7 @@ import messageService from '../axios/MessageService'
 import userService from '../axios/userService'
 import {PulseLoader} from "react-spinners";
 import Navbar from "./Navbar";
+import Footer from "./Footer";
 
 class MessagesPreview extends Component{
     constructor(props) {
@@ -148,10 +149,10 @@ class MessagesPreview extends Component{
                 <Navbar/>
                     <div className="container" style={{color:"black"}}>
                         <div className="content container-fluid bootstrap snippets bootdey">
-                            <div className="row row-broken">
+                            <div className="row row-broken" >
                                 <div className="col-sm-3 col-xs-12">
                                     <div className="col-inside-lg decor-default chat"
-                                         style={{overflow: "hidden", outline: "none"}} tabIndex="5000">
+                                         style={{overflow: "hidden", outline: "none", borderRadius:"25px"}} tabIndex="5000">
                                         <div className="chat-users">
                                             <h6>Пораки</h6>
                                             {listOfConversation}
@@ -160,7 +161,7 @@ class MessagesPreview extends Component{
                                 </div>
                                 <div className="col-sm-9 col-xs-12 chat" style={{overflow: "hidden", outline: "none"}}
                                      tabIndex="5001">
-                                    <div className="col-inside-lg decor-default">
+                                    <div className="col-inside-lg decor-default" style={{borderRadius:"25px"}}>
                                         <div className="chat-body">
                                             <h6>Конверзација</h6>
                                             {listOfMessages}
@@ -175,6 +176,7 @@ class MessagesPreview extends Component{
                             </div>
                         </div>
                     </div>
+                <Footer/>
             </div>
         )
     }

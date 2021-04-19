@@ -37,7 +37,7 @@ class CarouselSlider extends Component{
                 </div>
             );
         return (
-            <div className="w-100">
+            <div className="w-100" style={{marginTop:"-100px"}}>
                 <Carousel onSelect={handleSelect}>
                     <Carousel.Item>
                         <Link to={`/posts/${posts[0].id}`}>
