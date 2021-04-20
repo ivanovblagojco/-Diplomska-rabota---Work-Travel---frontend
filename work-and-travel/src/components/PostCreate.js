@@ -9,21 +9,49 @@ import '../../node_modules/bootstrap/dist/css/bootstrap.min.css'
 import ReactNotification from 'react-notifications-component'
 import '../css/postCreate.css'
 import ReactPaginate from 'react-paginate'
+import { event } from "jquery";
 
 class PostCreate extends Component{
     constructor(props) {
         super(props);
         this.state={
+            id:-1,
             title:'',
             description:'',
-            file:null
+            file:null,
+            Posts:[],
+            isLoading : true,
+            page:0,
+            size:5,
+            totalElements:"",
+            totalPages:""
         }
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.getUpdatesFromServer=this.getUpdatesFromServer.bind(this);
+        this.handleClickGreen=this.handleClickGreen.bind(this);
+        this.handleClickRed=this.handleClickRed.bind(this);
+        this.handleNewPost=this.handleNewPost.bind(this);
+    }
+    componentDidMount(){
+        axiosService.getLoggedUserPosts(this.state.page, this.state.size).then(data=>{
+            if (data!==null){
+                this.setState({
+                    Posts:data.content,
+                    isLoading:false,
+                    totalElements:data.totalElements,
+                    pageCount:data.totalPages
+                 })
+                console.log(data)
+    
+            }
+        })
+
     }
     handleSubmit(event) {
         event.preventDefault();
 
         var formData = new FormData();
+        formData.append("id", this.state.id);
         formData.append("file", this.state.file);
         formData.append("title", this.state.title);
         formData.append("description", this.state.description);
@@ -36,7 +64,27 @@ class PostCreate extends Component{
         });
 
     }
+    handlePageClick = (data) => {
+        let selected = data.selected;
+        this.setState({ page: selected }, () => {
+            this.getUpdatesFromServer();
+        });
+    };
+    getUpdatesFromServer(){
+        axiosService.getLoggedUserPosts(this.state.page, this.state.size).then(data=>{
+            if (data!==null){
+                this.setState({
+                    Posts:data.content,
+                    isLoading:false,
+                    totalElements:data.totalElements,
+                    pageCount:data.totalPages
+                 })
+                console.log(data)
+    
+            }
+        })
 
+    }
     onFileChange = event => {
         this.setState({file:event.target.files[0]});
     };
@@ -45,17 +93,70 @@ class PostCreate extends Component{
 
     // File content to be displayed after
     // file upload is complete
-    fileData = () => {
-        if (this.state.file) {
-            return (
-                <div>
-                    <p>File Name: {this.state.file.name}</p>
-                    <p>File Type: {this.state.file.type}</p>
-                </div>
-            );
-        }
-    };
+    
+
+    handleClickGreen(e){
+        e.preventDefault();
+
+        axiosService.getPost(e.target.value).then(data=>{
+            document.getElementById("title").value=data.title;
+            document.getElementById("description").value=data.description;
+            console.log("data:"+data.mime_type+";base64,"+data.bytes);
+            document.getElementById("image").style.display="block";
+            document.getElementById("image").src="data:"+data.mime_type+";base64,"+data.bytes;
+            document.getElementById("file").required=false;
+            this.setState({
+                id:e.target.value
+            })
+        })
+        
+    }
+    handleClickRed(e){
+        e.preventDefault();
+
+        axiosService.deletePost(e.target.value).then(res=>{
+            this.getUpdatesFromServer();
+        })
+    }
+    handleNewPost(e){
+        e.preventDefault();
+
+        document.getElementById("title").value="";
+        document.getElementById("description").value="";
+        document.getElementById("file").value="";
+        document.getElementById("image").style.display="none";
+        document.getElementById("file").required=true;
+
+        this.setState({
+            id:-1
+        })
+
+    }
     render() {
+        const isLoading = this.state.isLoading;
+        const posts = this.state.Posts;
+
+        if(isLoading)
+            return(<div>Loading...</div>)
+        let lista = posts.map(post=>{
+            return(
+                <li class="list-group-item">
+                    <div class="todo-indicator bg-warning"></div>
+                    <div class="widget-content p-0">
+                        <div class="widget-content-wrapper">
+                            <div class="widget-content-left">
+                                <div class="widget-heading">{post.title}</div>
+                                <div class="widget-subheading"><i>{post.date_created}</i></div>
+                            </div>
+                            <div class="widget-content-right"> 
+                                <button type="button" value={post.id} onClick={this.handleClickGreen} class="fa fa-lg fa-edit"  style={{display:"contents", color:"green"}}></button> 
+                                <button type="button" value={post.id} onClick={this.handleClickRed} class="fa fa-lg fa-trash"  style={{display:"contents", color:"red"}}></button> 
+                            </div>
+                        </div>
+                    </div>
+                </li>
+            )
+        })
         return(
             <div>
                 <Navbar/>
@@ -66,37 +167,19 @@ class PostCreate extends Component{
                 <div class="row d-flex justify-content-center" style={{overflowX:"hidden", maxWidth:"100%"}}>
                     <div class="col-8 col-md-6">
                         <div class="card-hover-shadow-2x mb-3 card">
-                            <div class="card-header-tab card-header">
-                                <div class="card-header-title font-size-lg text-capitalize font-weight-normal"><i class="fa fa-tasks"></i>&nbsp;Мои објави</div>
+                            <hr style={{border: "2px solid #f7b924"}}/>
+
+                            <div >
+                                <button type="button" class="fa fa-2x fa-tasks"  style={{display:"contents", color:"black"}}><i style={{fontSize:"26px"}}>Мои објави</i></button> 
+                                <button type="button" className="btn btn-primary" onClick={this.handleNewPost} style={{display:"flex",float:"right"}}>Нова објава</button>
                             </div>
+                            <hr/>
+
                                 <div style={{minHeight:"420px"}}>
                                     <div>
                                         <div>
                                             <ul class=" list-group list-group-flush">
-                                                <li class="list-group-item">
-                                                    <div class="todo-indicator bg-warning"></div>
-                                                    <div class="widget-content p-0">
-                                                        <div class="widget-content-wrapper">
-                                                            <div class="widget-content-left">
-                                                                <div class="widget-heading">Call Sam For payments</div>
-                                                                <div class="widget-subheading"><i>By Bob</i></div>
-                                                            </div>
-                                                            <div class="widget-content-right"> <button class="border-0 btn-transition btn btn-outline-success"> <i class="fa fa-check"></i></button> <button class="border-0 btn-transition btn btn-outline-danger"> <i class="fa fa-trash"></i> </button> </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
-                                                <li class="list-group-item">
-                                                    <div class="todo-indicator bg-warning"></div>
-                                                    <div class="widget-content p-0">
-                                                        <div class="widget-content-wrapper">
-                                                            <div class="widget-content-left">
-                                                                <div class="widget-heading">Call Sam For payments</div>
-                                                                <div class="widget-subheading"><i>By Bob</i></div>
-                                                            </div>
-                                                            <div class="widget-content-right"> <button class="border-0 btn-transition btn btn-outline-success"> <i class="fa fa-check"></i></button> <button class="border-0 btn-transition btn btn-outline-danger"> <i class="fa fa-trash"></i> </button> </div>
-                                                        </div>
-                                                    </div>
-                                                </li>
+                                                {lista}
                                             </ul>
                                         </div>
                                     </div>
@@ -133,21 +216,22 @@ class PostCreate extends Component{
                             </Form.Label>
                             <Form.Group controlId="title">
                                 <Form.Label>Наслов</Form.Label>
-                                <Form.Control type="text" placeholder="Внеси наслов" onChange={e => this.setState({ title: e.target.value })} required />
+                                <Form.Control id="title" type="text" placeholder="Внеси наслов" onChange={e => this.setState({ title: e.target.value })} required />
                             </Form.Group>
                             <Form.Group controlId="description">
                                 <Form.Label>Опис</Form.Label>
-                                <Form.Control as="textarea" rows={12} placeholder="Внеси опис" onChange={e => this.setState({ description: e.target.value })} required />
+                                <Form.Control id="description" as="textarea" rows={7} placeholder="Внеси опис" onChange={e => this.setState({ description: e.target.value })} required />
                             </Form.Group>
                             <div>
                                 <div>
-                                    <input type="file" accept="image/*" onChange={this.onFileChange} required />
+                                    <img id="image" src="" style={{width:"100%", height:"300px", display:"none"}}/>
+                                    <input id="file" type="file" accept="image/*" onChange={this.onFileChange} required/>
                                 </div>
-                                {this.fileData()}
+                                
                             </div>
                             <br />
                             <Button variant="primary" type="submit">
-                                Објави
+                                Зачувај и објави
                         </Button>
                         </Form>
                     </div>

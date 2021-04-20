@@ -19,7 +19,7 @@ class Home extends Component{
             Posts:[],
             isLoading : true,
             page:0,
-            size:4,
+            size:6,
             totalElements:"",
             totalPages:"",
             last_clicked:""
@@ -108,7 +108,7 @@ class Home extends Component{
             </div>);
         let postCards = posts.map(post =>{
             return(
-                <Col className="container" sm="5">
+                <Col sm="4">
                     <PostCard post={post}/>
                 </Col>
             )

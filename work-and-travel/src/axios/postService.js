@@ -20,6 +20,24 @@ const PostService = {
                 }
             );
     },
+    deletePost: (id) => {
+
+        return axios.delete(`/rest/deletePost/${id}`,null, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            }
+        }).then(res =>{
+                return res;
+            }
+        )
+            .catch(
+                err => {
+                    console.log(err);
+                }
+            );
+    },
     getAllPosts: (page,size) => {
 
         //const formParams = JSON.stringify(data);
@@ -99,6 +117,23 @@ const PostService = {
 
         //const formParams = JSON.stringify(data);
         return axiosNA.get(`/rest/getAllPostsFromAgency/${page}/${size}`, null, {
+            headers: {
+                'Accept': 'application/json',
+                'Content-Type': 'application/json',
+                'Access-Control-Allow-Origin': '*',
+            }
+        }).then(res =>{
+                return res.data;
+            }
+        )
+            .catch(
+                err => {
+                    return null;
+                }
+            );
+    },
+    getLoggedUserPosts: (page, size) => {
+        return axios.get(`/rest/getLoggedUserPosts/${page}/${size}`, null, {
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',

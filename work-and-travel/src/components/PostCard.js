@@ -20,17 +20,17 @@ class PostCard extends Component{
             <div style={{ marginBottom: "30px" }}>
                 <Link to={`/posts/${this.props.post.id}`} style={{ textDecoration: 'none' }}>
 
-                    <Card >
+                    <Card>
                         <CardActionArea>
                             <img className="card-img-right flex-auto d-none d-lg-block" alt="Thumbnail [200x250]"
                                 src={`data:${this.props.post.mime_type};base64,${this.props.post.bytes}`} style={{ width: "100%", height: 250 }} />
                             <CardContent>
                                 <Typography gutterBottom variant="h5" component="h2">
-                                    {this.props.post.title}
+                                    {this.props.post.title.substring(0, 15) + "..."}
                                 </Typography>
                                 {this.props.post.date_created}
                                 <Typography variant="body2" color="textSecondary" component="p">
-                                    {this.props.post.description.substring(0, 100) + "..."}
+                                    {this.props.post.description.substring(0, 30) + "..."}
                                 </Typography>
                             </CardContent>
                         </CardActionArea>
