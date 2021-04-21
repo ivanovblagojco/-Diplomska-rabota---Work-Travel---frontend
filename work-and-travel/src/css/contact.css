@@ -1,0 +1,11 @@
+.jumbotron {
+    background: #358CCE;
+    color: #FFF;
+    border-radius: 0px;
+    }
+    .jumbotron small {
+    color: #FFF;
+    }
+    .h1 small {
+    font-size: 24px;
+    }

@@ -14,6 +14,7 @@ import img from "../images/smoke-white.png"
 import MessageCreate from "./MessageCreate";
 import MessagesPreview from "./MessagesPreview";
 import Profile from "./Profile";
+import Contact from './Contact';
 class App extends Component {
     componentDidMount() {
         //document.body.style.background = `url(${img}) repeat`
@@ -37,6 +38,7 @@ class App extends Component {
                     <Route exact path="/createMessage" component={MessageCreate}/>
                     <Route exact path="/messagesPreview" component={MessagesPreview}/>
                     <Route exact path="/profile" component={Profile}/>
+                    <Route exact path="/contact" component={Contact}/>
                 </Switch>
             </BrowserRouter>
         )
