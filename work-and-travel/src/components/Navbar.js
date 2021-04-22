@@ -11,7 +11,23 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 class Navbar extends Component{
     render() {
         let buttons;
-        if(authenticationService.CheckIfUserLoggedIn()===true) {
+        if(authenticationService.CheckIfUserLoggedIn()===true && localStorage.getItem("email")==="admin@admin.com"){
+            <ul class="navbar-nav ml-auto nav-flex-icons">
+                    <li class="nav-item dropdown">
+                        <a class="nav-link dropdown-toggle waves-effect waves-light" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <FontAwesomeIcon icon={faUser} />
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink">
+                            <a class="dropdown-item waves-effect waves-light" href="/messagesPreview"><FontAwesomeIcon icon={faInbox} /> Мои пораки</a>
+                            <a class="dropdown-item waves-effect waves-light" href="/createPost"><FontAwesomeIcon icon={faPlus} /> Креирај објава</a>
+                            <a class="dropdown-item waves-effect waves-light" href="/profile"><FontAwesomeIcon icon={faUserEdit} /> Профил</a>
+                            <a class="dropdown-item waves-effect waves-light" href="/contacts"><FontAwesomeIcon icon={faInfoCircle} /> Контакт форми</a>
+                            <a class="dropdown-item waves-effect waves-light" href="/" onClick={() => localStorage.clear()}> <FontAwesomeIcon icon={faSignOutAlt} /> Одјави се </a>
+                        </div>
+                    </li>
+                </ul>
+        }
+        else if(authenticationService.CheckIfUserLoggedIn()===true) {
             buttons = (
                 <ul class="navbar-nav ml-auto nav-flex-icons">
                     <li class="nav-item dropdown">
@@ -22,6 +38,7 @@ class Navbar extends Component{
                             <a class="dropdown-item waves-effect waves-light" href="/messagesPreview"><FontAwesomeIcon icon={faInbox} /> Мои пораки</a>
                             <a class="dropdown-item waves-effect waves-light" href="/createPost"><FontAwesomeIcon icon={faPlus} /> Креирај објава</a>
                             <a class="dropdown-item waves-effect waves-light" href="/profile"><FontAwesomeIcon icon={faUserEdit} /> Профил</a>
+                            <a class="dropdown-item waves-effect waves-light" href="/contacts"><FontAwesomeIcon icon={faInfoCircle} /> Контакт форми</a>
                             <a class="dropdown-item waves-effect waves-light" href="/" onClick={() => localStorage.clear()}> <FontAwesomeIcon icon={faSignOutAlt} /> Одјави се </a>
                         </div>
                     </li>

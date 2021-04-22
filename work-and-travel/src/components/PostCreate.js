@@ -210,7 +210,9 @@ class PostCreate extends Component{
                     </div>
                     <div class="col-8 col-md-4">
 
-                        <Form onSubmit={this.handleSubmit}>
+                        <Form onSubmit={this.handleSubmit} style={{ background:"white", boxShadow:"25px 25px 25px 25px #f7f7f7", border:"1px solid white", borderRadius:"10px 10px 10px 10px",minHeight:"615px"}}>
+                            <hr style={{border: "2px solid #f7b924"}}/>
+
                             <Form.Label>
                                 Промена на постоечка и креирање на нова објава
                             </Form.Label>

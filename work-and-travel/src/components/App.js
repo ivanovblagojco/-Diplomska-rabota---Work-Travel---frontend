@@ -15,6 +15,7 @@ import MessageCreate from "./MessageCreate";
 import MessagesPreview from "./MessagesPreview";
 import Profile from "./Profile";
 import Contact from './Contact';
+import Contacts from './Contacts';
 class App extends Component {
     componentDidMount() {
         //document.body.style.background = `url(${img}) repeat`
@@ -39,6 +40,7 @@ class App extends Component {
                     <Route exact path="/messagesPreview" component={MessagesPreview}/>
                     <Route exact path="/profile" component={Profile}/>
                     <Route exact path="/contact" component={Contact}/>
+                    <Route exact path="/contacts" component={Contacts}/>
                 </Switch>
             </BrowserRouter>
         )
