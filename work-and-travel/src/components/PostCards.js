@@ -22,16 +22,16 @@ class PostCards extends Component{
             size:6,
             totalElements:"",
             totalPages:"",
-            last_clicked:""
+            last_clicked:"",
         }
         this.handleAgencyClick = this.handleAgencyClick.bind(this);
         this.handleUsersClick = this.handleUsersClick.bind(this);
+        this.changePlace = this.changePlace.bind(this);
         this.handleAllClick = this.handleAllClick.bind(this);
-
 
     }
     async componentDidMount() {
-        const data = await axiosService.getAllPosts(this.state.page, this.state.size);
+        const data = await axiosService.getAllPosts("", this.state.page, this.state.size);
 
         if (data!==null){
             this.setState({
@@ -43,8 +43,10 @@ class PostCards extends Component{
             })
         }
     }
-    async handleAllClick(){
-        const data = await axiosService.getAllPosts(this.state.page, this.state.size);
+    async handleAllClick(place){
+        const data = await axiosService.getAllPosts(place, this.state.page, this.state.size);
+        
+            
         if (data!==null){
             this.setState({
                 Posts:data.content,
@@ -56,8 +58,8 @@ class PostCards extends Component{
         }
         console.log(this.state);
     }
-    async handleAgencyClick(){
-        const data = await axiosService.getAllPostsFromAgency(this.state.page, this.state.size);
+    async handleAgencyClick(place){
+        const data = await axiosService.getAllPostsFromAgency(place,this.state.page, this.state.size);
         if (data!==null){
             this.setState({
                 Posts:data.content,
@@ -69,8 +71,8 @@ class PostCards extends Component{
         }
         console.log(this.state);
     }
-    async handleUsersClick(){
-        const data = await axiosService.getAllPostsFromUsers(this.state.page, this.state.size);
+    async handleUsersClick(place){
+        const data = await axiosService.getAllPostsFromUsers(place,this.state.page, this.state.size);
         debugger;
         if (data!==null){
             this.setState({
@@ -92,12 +94,32 @@ class PostCards extends Component{
 
     async getUpdatesFromServer(){
         if(this.state.last_clicked==="all"){
-            this.handleAllClick();
+            this.handleAllClick(null);
         }else if(this.state.last_clicked==="agency"){
             this.handleAgencyClick();
         }else if(this.state.last_clicked==="users"){
             this.handleUsersClick();
         }
+    }
+
+    changePlace(e){
+        if(this.state.last_clicked==="all"){
+            if(e.target.value===1){this.handleAllClick("Америка")}
+            else if(e.target.value===2){this.handleAllClick("Германија")}
+            else if(e.target.value===3){this.handleAllClick("Балкан")}
+            else if(e.target.value===4){this.handleAllClick("Останато")}
+        }else if(this.state.last_clicked==="agency"){
+            if(e.target.value===1){this.handleAgencyClick("Америка")}
+            else if(e.target.value===2){this.handleAgencyClick("Германија")}
+            else if(e.target.value===3){this.handleAgencyClick("Балкан")}
+            else if(e.target.value===4){this.handleAgencyClick("Останато")}
+        }else if(this.state.last_clicked==="users"){
+            if(e.target.value===1){this.handleAllClick("Америка")}
+            else if(e.target.value===2){this.handleUsersClick("Германија")}
+            else if(e.target.value===3){this.handleUsersClick("Балкан")}
+            else if(e.target.value===4){this.handleUsersClick("Останато")}
+        }
+        
     }
     render() {
         const posts = this.state.Posts;
@@ -122,7 +144,7 @@ class PostCards extends Component{
                         <NavLink className="btn btn-outline-light btn-sm ml-1" style={{background :"#1F75FE"}} to="#" onClick={this.handleAllClick}>Сите</NavLink>
                     </div>
                     <br/>
-                <TogglerM/>
+                <TogglerM updateParent={this.changePlace}/>
                 <Container fluid="sm">
                     <Row>
                         {postCards}

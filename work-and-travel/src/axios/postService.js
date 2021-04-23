@@ -38,24 +38,42 @@ const PostService = {
                 }
             );
     },
-    getAllPosts: (page,size) => {
-
-        //const formParams = JSON.stringify(data);
-        return axiosNA.get(`/rest/getAllPosts/${page}/${size}`, null, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-            }
-        }).then(res =>{
-                return res.data;
-            }
-        )
-            .catch(
-                err => {
-                    return null;
+    getAllPosts: (place,page,size) => {
+        debugger;
+        if(place==="Америка" || place==="Германија" || place==="Балкан" || place==="Останато"){
+            return axiosNA.get(`/rest/getAllPosts/${place}/${page}/${size}`, null, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
                 }
-            );
+            }).then(res =>{
+                    return res.data;
+                }
+            )
+                .catch(
+                    err => {
+                        return null;
+                    }
+                );
+        
+        }else{
+            return axiosNA.get(`/rest/getAllPosts/${page}/${size}`, null, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                }
+            }).then(res =>{
+                    return res.data;
+                }
+            )
+                .catch(
+                    err => {
+                        return null;
+                    }
+                );
+        }
     },
     getPost: (id) => {
 
@@ -94,43 +112,77 @@ const PostService = {
                 }
             );
     },
-    getAllPostsFromUsers: (page, size) => {
+    getAllPostsFromUsers: (place,page, size) => {
 
-        //const formParams = JSON.stringify(data);
-        return axiosNA.get(`/rest/getAllPostsFromUsers/${page}/${size}`, null, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-            }
-        }).then(res =>{
-                return res.data;
-            }
-        )
-            .catch(
-                err => {
-                    return null;
+        if(place==="Америка" || place==="Германија" || place==="Балкан" || place==="Останато"){
+            return axiosNA.get(`/rest/getAllPostsFromUsers/${place}/${page}/${size}`, null, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
                 }
-            );
+            }).then(res =>{
+                    return res.data;
+                }
+            )
+                .catch(
+                    err => {
+                        return null;
+                    }
+                );
+        }else{
+            return axiosNA.get(`/rest/getAllPostsFromUsers/${page}/${size}`, null, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                }
+            }).then(res =>{
+                    return res.data;
+                }
+            )
+                .catch(
+                    err => {
+                        return null;
+                    }
+                );
+        }
     },
-    getAllPostsFromAgency: (page, size) => {
+    getAllPostsFromAgency: (place, page, size) => {
 
-        //const formParams = JSON.stringify(data);
-        return axiosNA.get(`/rest/getAllPostsFromAgency/${page}/${size}`, null, {
-            headers: {
-                'Accept': 'application/json',
-                'Content-Type': 'application/json',
-                'Access-Control-Allow-Origin': '*',
-            }
-        }).then(res =>{
-                return res.data;
-            }
-        )
-            .catch(
-                err => {
-                    return null;
+        if(place==="Америка" || place==="Германија" || place==="Балкан" || place==="Останато"){
+            return axiosNA.get(`/rest/getAllPostsFromAgency/${place}/${page}/${size}`, null, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
                 }
-            );
+            }).then(res =>{
+                    return res.data;
+                }
+            )
+                .catch(
+                    err => {
+                        return null;
+                    }
+                );
+        }else{
+            return axiosNA.get(`/rest/getAllPostsFromAgency/${page}/${size}`, null, {
+                headers: {
+                    'Accept': 'application/json',
+                    'Content-Type': 'application/json',
+                    'Access-Control-Allow-Origin': '*',
+                }
+            }).then(res =>{
+                    return res.data;
+                }
+            )
+                .catch(
+                    err => {
+                        return null;
+                    }
+                );
+        }
     },
     getLoggedUserPosts: (page, size) => {
         return axios.get(`/rest/getLoggedUserPosts/${page}/${size}`, null, {

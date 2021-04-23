@@ -41,10 +41,10 @@ class TogglerM extends Component{
             <div class="bar"></div>
           </div>
         </li>
-        <li id="second" >Home</li>
-        <li id="third">Plugins</li>
-        <li id="fourth">About Us</li>
-        <li id="fifth">About Us</li>
+        <li id="second" value="1" onClick={this.props.updateParent}>Америка</li>
+        <li id="third"  value="2" onClick={this.props.updateParent}>Германија</li>
+        <li id="fourth" value="3" onClick={this.props.updateParent}>Балкан</li>
+        <li id="fifth"  value="4" onClick={this.props.updateParent}>Останато</li>
       </ul>
     )
   }
