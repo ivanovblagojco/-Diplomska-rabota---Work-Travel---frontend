@@ -5,7 +5,7 @@ import '../css/navbar.css'
 import {Link} from "react-router-dom";
 import {Component} from "react";
 import authenticationService from '../axios/authentication'
-import { faArchive, faCashRegister, faHome, faInbox, faInfo, faInfoCircle, faNewspaper, faPlus, faRegistered, faRoute, faSignInAlt, faSignOutAlt, faUser, faUserEdit, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faArchive, faCashRegister, faGlobe, faHome, faInbox, faInfo, faInfoCircle, faNewspaper, faPlus, faRegistered, faRoute, faSignInAlt, faSignOutAlt, faUser, faUserEdit, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class Navbar extends Component{
@@ -69,6 +69,9 @@ class Navbar extends Component{
                         <ul class="navbar-nav mr-auto">
                             <li class="nav-item">
                                 <a class="nav-link waves-effect waves-light" href="/"> <FontAwesomeIcon icon={faHome} />Почетна</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link waves-effect waves-light" href="/posts"> <FontAwesomeIcon icon={faGlobe} />Објави</a>
                             </li>
                             <li class="nav-item">
                                 <a class="nav-link waves-effect waves-light" href="/travel"><FontAwesomeIcon icon={faRoute} /> Патувања</a>

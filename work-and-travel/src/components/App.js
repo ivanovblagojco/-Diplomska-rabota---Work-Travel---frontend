@@ -16,6 +16,8 @@ import MessagesPreview from "./MessagesPreview";
 import Profile from "./Profile";
 import Contact from './Contact';
 import Contacts from './Contacts';
+import PostCards from './PostCards'
+import TogglerM from './TogglerM';
 class App extends Component {
     componentDidMount() {
         //document.body.style.background = `url(${img}) repeat`
@@ -29,6 +31,7 @@ class App extends Component {
                     <Route exact path="/" component={Home}/>
                     <Route exact path="/login" component={Login}/>
                     <Route exact path="/register" component={Register}/>
+                    <Route exact path="/posts" component={PostCards}/>
                     <Route exact path="/first_register" component={FirstRegister}/>
                     <Route exact path="/forgot_password" component={ForgotPassword}/>
                     <Route exact path="/reset_password" component={ResetPassword}/>
@@ -41,6 +44,7 @@ class App extends Component {
                     <Route exact path="/profile" component={Profile}/>
                     <Route exact path="/contact" component={Contact}/>
                     <Route exact path="/contacts" component={Contacts}/>
+                    <Route exact path="/toggle" component={TogglerM}/>
                 </Switch>
             </BrowserRouter>
         )

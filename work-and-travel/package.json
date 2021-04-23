@@ -25,6 +25,7 @@
     "react-bootstrap": "^1.5.2",
     "react-dom": "^17.0.1",
     "react-images-upload": "^1.2.8",
+    "react-motion-menu": "^0.4.4",
     "react-notifications-component": "^3.1.0",
     "react-paginate": "^7.1.2",
     "react-perfect-scrollbar": "^1.5.8",
