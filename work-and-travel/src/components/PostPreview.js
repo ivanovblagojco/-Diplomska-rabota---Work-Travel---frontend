@@ -142,7 +142,7 @@ class PostPreview extends Component{
         if(post.from_agency===true){
             applyShow = (
                 <button className="btn btn-primary p-1 mb-3" type="button" style={{float:"right"}} onClick={this.handleClickCreateApplication} >Аплицирај веднаш
-                                {this.state.clickedCreateApplication ? <ApplicationCreate updateParent={ this.updateState } /> : null}
+                                {this.state.clickedCreateApplication ? <ApplicationCreate updateParent={ this.updateState } post_id={post.id} /> : null}
 
                 </button>
             )
