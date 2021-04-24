@@ -24,6 +24,7 @@ class App extends Component {
         document.body.style.background = 'white'
         document.body.style.color = 'black'
     }
+    
     render() {
         return (
             <BrowserRouter>

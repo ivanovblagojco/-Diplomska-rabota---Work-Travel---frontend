@@ -61,7 +61,7 @@ class MessageCreate extends Component{
                     <Button type="button" variant="primary" onClick={this.handleSubmit}>
                         Испрати
                     </Button>
-                    <Button type="button" variant="warning" onClick={this.hide &&  this.props.updateParent}>
+                    <Button type="button" variant="warning" onClick={this.hide && this.props.updateParent}>
                         Затвори
                     </Button>
                 </Modal.Footer>

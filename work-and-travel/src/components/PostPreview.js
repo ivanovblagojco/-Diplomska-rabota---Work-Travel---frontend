@@ -9,6 +9,7 @@ import PostCard from "./PostCard";
 import CommentPreview from "./CommentPreview";
 import ReactPaginate from 'react-paginate';
 import 'bootstrap/dist/css/bootstrap-grid.min.css'
+import ApplicationCreate from "./ApplicationCreate";
 
 class PostPreview extends Component{
     constructor(props) {
@@ -21,12 +22,15 @@ class PostPreview extends Component{
             page:0,
             size:3,
             totalElements:"",
-            totalPages:""
+            totalPages:"",
+            clickedCreateApplication:false
         }
 
         this.handleCommentChange = this.handleCommentChange.bind(this);
         this.handleCommentSubmit = this.handleCommentSubmit.bind(this);
         this.updateComments = this.updateComments.bind(this);
+        this.updateState = this.updateState.bind(this);
+        this.handleClickCreateApplication=this.handleClickCreateApplication.bind(this);
     }
     async componentDidMount() {
         debugger;
@@ -49,6 +53,12 @@ class PostPreview extends Component{
 
         })
     }
+    updateState() {
+        this.setState({clickedCreateApplication: false}, function () {
+            console.log(this.state);
+        });
+    }
+
     updateComments(){
         commentService.getAllComments(this.state.page, this.state.size, this.state.Post.id).then(data2=>{
             this.setState({
@@ -102,6 +112,11 @@ class PostPreview extends Component{
 
         })
     }
+    handleClickCreateApplication() {
+        this.setState({
+            clickedCreateApplication: true
+        });
+    }
     render() {
 
         const post = this.state.Post;
@@ -121,6 +136,17 @@ class PostPreview extends Component{
                 )
             });
         }
+
+        let applyShow;
+
+        if(post.from_agency===true){
+            applyShow = (
+                <button className="btn btn-primary p-1 mb-3" type="button" style={{float:"right"}} onClick={this.handleClickCreateApplication} >Аплицирај веднаш
+                                {this.state.clickedCreateApplication ? <ApplicationCreate updateParent={ this.updateState } /> : null}
+
+                </button>
+            )
+        }
         return(
         <div>
             <Navbar/>
@@ -132,8 +158,8 @@ class PostPreview extends Component{
                             <a href="#"></a>
                         </p>
                         <hr/>
-                        <p>{post.date_created}</p>
-                        <hr/>
+                        <p style={{display:"inline", float:"left", margin:"5px", padding:"1px"}}>{post.date_created}</p>
+                        {applyShow}
                         <img className="img-fluid rounded" src={`data:${post.mime_type};base64,${post.bytes}`} alt="" style={{width:"100%", height:"300px"}}/>
                         <hr/>
                         <p className="lead">{post.title}
