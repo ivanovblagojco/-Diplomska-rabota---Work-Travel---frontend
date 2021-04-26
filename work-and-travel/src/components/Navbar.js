@@ -5,7 +5,7 @@ import '../css/navbar.css'
 import {Link} from "react-router-dom";
 import {Component} from "react";
 import authenticationService from '../axios/authentication'
-import { faArchive, faCashRegister, faGlobe, faHome, faInbox, faInfo, faInfoCircle, faNewspaper, faPlus, faRegistered, faRoute, faSignInAlt, faSignOutAlt, faUser, faUserEdit, faUserPlus } from "@fortawesome/free-solid-svg-icons";
+import { faArchive, faCashRegister, faGlobe, faHome, faIdCard, faInbox, faInfo, faInfoCircle, faNewspaper, faPlus, faRegistered, faRoute, faSignInAlt, faSignOutAlt, faUser, faUserEdit, faUserPlus } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
 class Navbar extends Component{
@@ -19,7 +19,7 @@ class Navbar extends Component{
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item waves-effect waves-light" href="/messagesPreview"><FontAwesomeIcon icon={faInbox} /> Мои пораки</a>
-                            <a class="dropdown-item waves-effect waves-light" href="/createPost"><FontAwesomeIcon icon={faPlus} /> Креирај објава</a>
+                            <a class="dropdown-item waves-effect waves-light" href="/createPost"><FontAwesomeIcon icon={faPlus} /> Објави/Нова објава</a>
                             <a class="dropdown-item waves-effect waves-light" href="/profile"><FontAwesomeIcon icon={faUserEdit} /> Профил</a>
                             <a class="dropdown-item waves-effect waves-light" href="/contacts"><FontAwesomeIcon icon={faInfoCircle} /> Контакт форми</a>
                             <a class="dropdown-item waves-effect waves-light" href="/" onClick={() => localStorage.clear()}> <FontAwesomeIcon icon={faSignOutAlt} /> Одјави се </a>
@@ -36,7 +36,8 @@ class Navbar extends Component{
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-default" aria-labelledby="navbarDropdownMenuLink">
                             <a class="dropdown-item waves-effect waves-light" href="/messagesPreview"><FontAwesomeIcon icon={faInbox} /> Мои пораки</a>
-                            <a class="dropdown-item waves-effect waves-light" href="/createPost"><FontAwesomeIcon icon={faPlus} /> Креирај објава</a>
+                            <a class="dropdown-item waves-effect waves-light" href="/createPost"><FontAwesomeIcon icon={faPlus} />Објави/Нова објава</a>
+                            <a class="dropdown-item waves-effect waves-light" href="/myApplications"><FontAwesomeIcon icon={faIdCard} /> Апликации</a>
                             <a class="dropdown-item waves-effect waves-light" href="/profile"><FontAwesomeIcon icon={faUserEdit} /> Профил</a>
                             <a class="dropdown-item waves-effect waves-light" href="/contacts"><FontAwesomeIcon icon={faInfoCircle} /> Контакт форми</a>
                             <a class="dropdown-item waves-effect waves-light" href="/" onClick={() => localStorage.clear()}> <FontAwesomeIcon icon={faSignOutAlt} /> Одјави се </a>

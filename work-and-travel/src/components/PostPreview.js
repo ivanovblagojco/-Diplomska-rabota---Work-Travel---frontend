@@ -164,6 +164,8 @@ class PostPreview extends Component{
                         <hr/>
                         <p className="lead">{post.title}
                         </p>
+                        <p style={{color:"#f7b924"}}>{post.place}
+                        </p>
                         <p>{post.description}</p>
                         <hr/>
 

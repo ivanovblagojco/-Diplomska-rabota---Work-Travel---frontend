@@ -1,5 +1,5 @@
 import {Component} from "react";
-import {Button, Form} from "react-bootstrap";
+import {Button, Form, Dropdown} from "react-bootstrap";
 import Navbar from './Navbar'
 import Footer from './Footer'
 import axiosService from '../axios/postService'
@@ -18,6 +18,7 @@ class PostCreate extends Component{
             id:-1,
             title:'',
             description:'',
+            palce:"",
             file:null,
             Posts:[],
             isLoading : true,
@@ -55,6 +56,7 @@ class PostCreate extends Component{
         formData.append("file", this.state.file);
         formData.append("title", this.state.title);
         formData.append("description", this.state.description);
+        formData.append("place", this.state.place);
 
         console.log(formData)
         axiosService.addNewPost(formData).then(res=>{
@@ -105,6 +107,7 @@ class PostCreate extends Component{
             document.getElementById("image").style.display="block";
             document.getElementById("image").src="data:"+data.mime_type+";base64,"+data.bytes;
             document.getElementById("file").required=false;
+            document.getElementById("place").value=data.place;
             this.setState({
                 id:e.target.value
             })
@@ -123,6 +126,7 @@ class PostCreate extends Component{
 
         document.getElementById("title").value="";
         document.getElementById("description").value="";
+        document.getElementById("place").value="";
         document.getElementById("file").value="";
         document.getElementById("image").style.display="none";
         document.getElementById("file").required=true;
@@ -209,7 +213,7 @@ class PostCreate extends Component{
                         </div>
                     </div>
                     <div class="col-8 col-md-4">
-
+                        <div className="container">
                         <Form onSubmit={this.handleSubmit} style={{ background:"white", boxShadow:"25px 25px 25px 25px #f7f7f7", border:"1px solid white", borderRadius:"10px 10px 10px 10px",minHeight:"615px"}}>
                             <hr style={{border: "2px solid #f7b924"}}/>
 
@@ -224,6 +228,14 @@ class PostCreate extends Component{
                                 <Form.Label>Опис</Form.Label>
                                 <Form.Control id="description" as="textarea" rows={7} placeholder="Внеси опис" onChange={e => this.setState({ description: e.target.value })} required />
                             </Form.Group>
+                            
+                                <select id="place" class="mdb-select md-form mb-3" required onChange={e => this.setState({ place: e.target.value })}>
+                                    <option value="" disabled selected>Избери место</option>
+                                    <option value="Америка">Америка</option>
+                                    <option value="Германија">Германија</option>
+                                    <option value="Балкан">Балкан</option>
+                                    <option value="Останато">Останато</option>
+                                </select>
                             <div>
                                 <div>
                                     <img id="image" src="" style={{width:"100%", height:"300px", display:"none"}}/>
@@ -236,6 +248,7 @@ class PostCreate extends Component{
                                 Зачувај и објави
                         </Button>
                         </Form>
+                        </div>
                     </div>
                 </div>
                 <Footer/>
