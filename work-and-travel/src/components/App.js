@@ -19,6 +19,7 @@ import Contacts from './Contacts';
 import PostCards from './PostCards'
 import TogglerM from './TogglerM';
 import ApplicationView from './ApplicationsView';
+import Locations from './Locations';
 class App extends Component {
     componentDidMount() {
         //document.body.style.background = `url(${img}) repeat`
@@ -48,6 +49,8 @@ class App extends Component {
                     <Route exact path="/contacts" component={Contacts}/>
                     <Route exact path="/toggle" component={TogglerM}/>
                     <Route exact path="/myApplications" component={ApplicationView}/>
+                    <Route exact path="/travel" component={Locations}/>
+
                 </Switch>
             </BrowserRouter>
         )
