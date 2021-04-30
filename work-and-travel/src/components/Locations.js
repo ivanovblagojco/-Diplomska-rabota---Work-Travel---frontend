@@ -10,20 +10,34 @@ import locationService from '../axios/locationService'
 class Locations extends Component{
     constructor(props){
         super(props);
-
-        this.state={
-            isLoading:true,
-            Locatons:[],
-            page:0,
-            size:9,
-            totalElements:"",
-            totalPages:""
+        
+        if(localStorage.getItem("email")!==""){
+            this.state={
+                isLoading:true,
+                Locatons:[],
+                page:0,
+                size:9,
+                totalElements:"",
+                totalPages:"",
+                email:localStorage.getItem("email")
+            }
+        }
+        else{
+            this.state={
+                isLoading:true,
+                Locatons:[],
+                page:0,
+                size:9,
+                totalElements:"",
+                totalPages:"",
+                email:"none"
+            }
         }
         this.updateLocations=this.updateLocations.bind(this);
     }
 
     async componentDidMount(){
-        const data = await locationService.getAllLocations(this.state.page, this.state.size);
+        const data = await locationService.getAllLocations(this.state.email, this.state.page, this.state.size);
         if (data !== null) {
             this.setState({
 
@@ -34,10 +48,9 @@ class Locations extends Component{
 
             })
         }
-        console.log(this.state.Locations)
     }
     async updateLocations(){
-        const data = await locationService.getAllLocations(this.state.page, this.state.size);
+        const data = await locationService.getAllLocations(this.state.email,this.state.page, this.state.size);
         if (data !== null) {
             this.setState({
 
@@ -65,7 +78,7 @@ class Locations extends Component{
             return(
                 
                 <Col sm="4">
-                    <Location location={location}/>     
+                    <Location location={location} updateParent={this.updateLocations}/>     
                 </Col>
             )
         })

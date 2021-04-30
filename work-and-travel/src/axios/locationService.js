@@ -22,9 +22,9 @@ const LocationService = {
                 }
             );
     },
-    getAllLocations: (page, size) => {
+    getAllLocations: (email,page, size) => {
         debugger;
-        return axiosNA.get(`/rest/getAllLocations/${page}/${size}`,null,{
+        return axiosNA.get(`/rest/getAllLocations/${email}/${page}/${size}`,null,{
             headers: {
                 'Accept': 'application/json',
                 'Content-Type': 'application/json',

@@ -12,6 +12,7 @@ import {MoonLoader, PulseLoader} from "react-spinners";
 import ReactPaginate from 'react-paginate';
 import 'bootstrap/dist/css/bootstrap-grid.min.css'
 import PostCards from "./PostCards";
+import Locations from "./Locations";
 
 class Home extends Component{
     constructor(props) {
@@ -25,6 +26,7 @@ class Home extends Component{
                 <Navbar/>
                 <CarouselSlider/>
                 <PostCards/>
+                <Locations/>
             </div>
         )
     }

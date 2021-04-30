@@ -171,7 +171,6 @@ class PostCards extends Component{
                                 activeClassName={'active'}
                             />
                         </div>
-                <Footer/>
             </div>
         )
     }
