@@ -3,47 +3,102 @@ import Footer from "./Footer";
 import Navbar from "./Navbar";
 import {Col, Container, NavLink, Row} from "react-bootstrap";
 import { Card } from "@material-ui/core";
+import LocationCreate from "./LocationCreate";
+import Location from './Location'
+import ReactPaginate from 'react-paginate';
+import locationService from '../axios/locationService'
 class Locations extends Component{
     constructor(props){
         super(props);
+
+        this.state={
+            isLoading:true,
+            Locatons:[],
+            page:0,
+            size:9,
+            totalElements:"",
+            totalPages:""
+        }
+        this.updateLocations=this.updateLocations.bind(this);
     }
 
+    async componentDidMount(){
+        const data = await locationService.getAllLocations(this.state.page, this.state.size);
+        if (data !== null) {
+            this.setState({
+
+                Locations: data.content,
+                isLoading: false,
+                totalElements: data.totalElements,
+                pageCount: data.totalPages,
+
+            })
+        }
+        console.log(this.state.Locations)
+    }
+    async updateLocations(){
+        const data = await locationService.getAllLocations(this.state.page, this.state.size);
+        if (data !== null) {
+            this.setState({
+
+                Locations: data.content,
+                isLoading: false,
+                totalElements: data.totalElements,
+                pageCount: data.totalPages,
+
+            })
+        }
+    }
+    handlePageClick = (data) => {
+        let selected = data.selected;
+        this.setState({ page: selected }, () => {
+            this.updateLocations();
+        });
+    };
     render(){
+        const isLoading=this.state.isLoading;
+        const locations=this.state.Locations;
+
+        if(isLoading)
+            return(<div>Loading...</div>)
+        let locationsCards=locations.map(location=>{
+            return(
+                
+                <Col sm="4">
+                    <Location location={location}/>     
+                </Col>
+            )
+        })
         return(
             <div>
             <Navbar/>
+            <LocationCreate updateParent={this.updateLocations}/>
             <Container fluid="sm">
                 <Row>
-                    <Col sm="4">
-                            <div class="card mb-5">
-
-                                <div class="view zoom overlay">
-                                    <h4 class="mb-0"><span class="badge badge-transparent badge-pill badge-news"><i style={{ color: "blue" }} className="fa fa-2x fa-map-marker " /></span></h4>
-                                    <a href="#!">
-                                        <div class="mask">
-                                            <div class="mask rgba-black-slight"></div>
-                                        </div>
-                                    </a>
-                                </div>
-
-                                <div class="card-body text-center">
-
-                                    <h5>Држава</h5>
-                                    <p class="small text-muted text-uppercase mb-2">Град</p>
-                                    <hr />
-                                    <h6 class="mb-3">
-                                        <span class="text-danger mr-1">Допаѓања: </span>
-                                    </h6>
-                                    <button type="button" class="btn btn-danger btn-sm px-3 mb-2 material-tooltip-main" data-toggle="tooltip" data-placement="top" title="Add to wishlist">
-                                        <i class="fa fa-lg fa-heart"></i>
-                                    </button>
-
-                                </div>
-
-                            </div>
-                    </Col>
+                    {locationsCards}
                 </Row>
             </Container>
+            <div className="d-flex justify-content-center position-static">
+                            <ReactPaginate
+                                previousLabel={'previous'}
+                                nextLabel={'next'}
+                                breakLabel={'...'}
+                                pageCount={this.state.pageCount}
+                                marginPagesDisplayed={2}
+                                pageRangeDisplayed={5}
+                                onPageChange={this.handlePageClick}
+                                breakClassName={'page-item'}
+                                breakLinkClassName={'page-link'}
+                                containerClassName={'pagination'}
+                                pageClassName={'page-item'}
+                                pageLinkClassName={'page-link'}
+                                previousClassName={'page-item'}
+                                previousLinkClassName={'page-link'}
+                                nextClassName={'page-item'}
+                                nextLinkClassName={'page-link'}
+                                activeClassName={'active'}
+                            />
+                        </div>
             <Footer/>
             </div>       
         )
